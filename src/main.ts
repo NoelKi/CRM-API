@@ -12,12 +12,22 @@ app.use(express.json());
 // Set the port number for the server
 const port = 3000;
 
-app.get('/users', (req, res) => {
+app.get('/api/users', (req, res) => {
   // Send a response to the client
   res.send(thisUsers);
 });
 
-app.post('/users', (req, res) => {
+app.get('/api/users/:id', (req, res) => {
+const id = req.params.id;
+const user = thisUsers.find((user) => user.id === id)
+  if (user) {
+    res.send(user);
+    return 
+  }
+  res.sendStatus(400);
+})
+
+app.post('/api/users', (req, res) => {
   const id = req.body.id;  
   if(thisUsers.find((user) => user.id === id)) {
     res.sendStatus(400);
@@ -27,7 +37,7 @@ app.post('/users', (req, res) => {
   thisUsers.push(req.body)
 });
 
-app.delete('/users', (req, res) => {
+app.delete('/api/users', (req, res) => {
   const userId = req.body.id;
   let filter = false;
   thisUsers = thisUsers.filter(({id}) => {
@@ -39,7 +49,7 @@ app.delete('/users', (req, res) => {
   res.sendStatus(filter ? 200 : 400);
 });
 
-app.put('/users', (req, res) => {
+app.put('/api/users', (req, res) => {
   let isEdit = false;
   const newUser = req.body;
   thisUsers = thisUsers.map((user) => {
