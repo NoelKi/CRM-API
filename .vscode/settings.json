@@ -1,0 +1,25 @@
+{
+  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit",
+    "source.fixAll": "explicit"
+  },
+  "eslint.options": {
+    "extensions": [".ts", ".html"]
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html"
+  ],
+  "files.eol": "\n",
+  "[typescript]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  }
+}

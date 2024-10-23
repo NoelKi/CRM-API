@@ -1,0 +1,46 @@
+GET http://localhost:3000/users
+
+### 
+
+DELETE http://localhost:3000/users
+Content-Type: application/json 
+
+{  
+    "id": "0"
+}
+
+###
+
+POST http://localhost:3000/users HTTP/1.1
+content-type: application/json
+
+  {
+    "id": "3",
+    "firstName": "Kieran",
+    "lastName": "Mai",
+    "birthDate": "2024-10-16T22:00:00.000Z",
+    "street": "",
+    "city": "Berlin",
+    "postalCode": "12161",
+    "email": "kieran.noel@icloud.com",
+    "houseNumber": ""
+  }
+
+###
+
+PUT http://localhost:3000/users HTTP/1.1
+content-type: application/json
+
+  {
+    "id": "0",
+    "firstName": "Kieran",
+    "lastName": "Mai",
+    "birthDate": "2024-10-16T22:00:00.000Z",
+    "street": "",
+    "city": "Berlin",
+    "postalCode": "12161",
+    "email": "kieran.noel@icloud.com",
+    "houseNumber": ""
+  }
+
+###
