@@ -1,0 +1,21 @@
+{
+  "name": "crm-api",
+  "version": "1.0.0",
+  "description": "api for a crm system",
+  "main": "index.js",
+  "scripts": {
+    "local": "nodemon"
+  },
+  "author": "Kieran Mai",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.7.9",
+    "esbuild": "^0.24.0",
+    "nodemon": "^3.1.7",
+    "typescript": "^5.6.3"
+  }
+}

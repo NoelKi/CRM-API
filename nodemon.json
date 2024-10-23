@@ -1,0 +1,6 @@
+{
+    "watch": ["src"],
+    "ext": ".ts,.js,.json",
+    "ignore": [],
+    "exec": "node esbuild.js nodemon && node --enable-source-maps ./dist/main.js"
+  }
