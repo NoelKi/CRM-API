@@ -10,8 +10,9 @@ export const users: User[] = [
     houseNumber: '',
     city: 'Berlin',
     postalCode: '12161',
-    email: 'kieran.noel@icloud.com'
-  }),
+    email: 'kieran.noel@icloud.com',
+    profilPicSrc: './assets/img/logos/file.png'
+    }),
   new User({
     id: '1',
     firstName: 'Amadeus',
@@ -21,6 +22,7 @@ export const users: User[] = [
     houseNumber: '43',
     city: 'Berlin',
     postalCode: '12207',
-    email: 'amadeus@sorglosinterent.de'
+    email: 'amadeus@sorglosinterent.de',
+    profilPicSrc: './assets/img/logos/file.png'
   })
 ];

@@ -1,6 +1,7 @@
 // Import the 'express' module
 import express from 'express';
 import { users } from './fake-db/user.data';
+import { User } from './models/user.model';
 let thisUsers = users;
 
 // Create an Express application
@@ -18,8 +19,11 @@ app.get('/api/users', (req, res) => {
 });
 
 app.get('/api/users/:id', (req, res) => {
-const id = req.params.id;
-const user = thisUsers.find((user) => user.id === id)
+  
+  const id = req.params.id;
+  console.log(thisUsers);
+  const user = thisUsers.find((user) => user.id === id)
+  console.log(user);
   if (user) {
     res.send(user);
     return 
@@ -28,25 +32,24 @@ const user = thisUsers.find((user) => user.id === id)
 })
 
 app.post('/api/users', (req, res) => {
-  const id = req.body.id;  
-  if(thisUsers.find((user) => user.id === id)) {
-    res.sendStatus(400);
-    return 
-  } 
-  res.sendStatus(200)
-  thisUsers.push(req.body)
+  req.body.id = String(thisUsers.length);  
+  const user = new User(req.body); 
+  thisUsers.push(user)
+  res.send({status: 'OK', id: user.id, profilPicSrc: user.profilPicSrc});
 });
 
-app.delete('/api/users', (req, res) => {
-  const userId = req.body.id;
+app.delete('/api/users/:id', (req, res) => {
+  const userId = req.params.id;
   let filter = false;
   thisUsers = thisUsers.filter(({id}) => {
     if (userId === id) {
       filter = true
+      
     }  
     return id !== userId;
   });
-  res.sendStatus(filter ? 200 : 400);
+  // res.sendStatus(filter ? 200 : 400);
+  res.send(filter ? {status: 'OK'} : {status: 'Error'})
 });
 
 app.put('/api/users', (req, res) => {
@@ -59,7 +62,7 @@ app.put('/api/users', (req, res) => {
     }
     return user;
   });
-  res.sendStatus(isEdit ? 200 : 400);
+  res.send(isEdit ? {status: 'OK'} : {status: 'Error'});
 });
 
 // Start the server and listen on the specified port
