@@ -23,8 +23,7 @@ export class User {
     if (obj && obj.profilPicSrc !== '') {
       this.profilPicSrc = obj.profilPicSrc;
     } else {
-      this.profilPicSrc = './assets/img/logos/profilPicDefault.jpg';
-
+      this.profilPicSrc = './api/assets/img/logos/profilPicDefault.jpg';
     }
   }
 }

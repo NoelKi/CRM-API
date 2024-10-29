@@ -11,7 +11,7 @@ export const users: User[] = [
     city: 'Berlin',
     postalCode: '12161',
     email: 'kieran.noel@icloud.com',
-    profilPicSrc: './assets/img/logos/file.png'
+    profilPicSrc: './api/assets/img/logos/file.png'
   }),
   new User({
     id: '1',
@@ -23,7 +23,7 @@ export const users: User[] = [
     city: 'Berlin',
     postalCode: '12207',
     email: 'amadeus@sorglosinterent.de',
-    profilPicSrc: './assets/img/logos/file.png'
+    profilPicSrc: './api/assets/img/logos/file.png'
   }),
   new User({
     id: '2',
@@ -35,7 +35,7 @@ export const users: User[] = [
     city: 'Hamburg',
     postalCode: '22081',
     email: 'emma.schmidt@example.com',
-    profilPicSrc: './assets/img/logos/file.png'
+    profilPicSrc: './api/assets/img/logos/file.png'
   }),
   new User({
     id: '3',
@@ -47,7 +47,7 @@ export const users: User[] = [
     city: 'Munich',
     postalCode: '80331',
     email: 'lukas.fischer@example.com',
-    profilPicSrc: './assets/img/logos/file.png'
+    profilPicSrc: './api/assets/img/logos/file.png'
   }),
   new User({
     id: '4',
@@ -59,7 +59,7 @@ export const users: User[] = [
     city: 'Frankfurt',
     postalCode: '60313',
     email: 'sophie.weber@example.com',
-    profilPicSrc: './assets/img/logos/file.png'
+    profilPicSrc: './api/assets/img/logos/file.png'
   }),
   new User({
     id: '5',
@@ -71,7 +71,7 @@ export const users: User[] = [
     city: 'Cologne',
     postalCode: '50667',
     email: 'max.mueller@example.com',
-    profilPicSrc: './assets/img/logos/file.png'
+    profilPicSrc: './api/assets/img/logos/file.png'
   }),
   new User({
     id: '6',
@@ -83,7 +83,7 @@ export const users: User[] = [
     city: 'Stuttgart',
     postalCode: '70178',
     email: 'leonie.keller@example.com',
-    profilPicSrc: './assets/img/logos/file.png'
+    profilPicSrc: './api/assets/img/logos/file.png'
   }),
   new User({
     id: '7',
@@ -95,7 +95,7 @@ export const users: User[] = [
     city: 'Düsseldorf',
     postalCode: '40210',
     email: 'tim.brandt@example.com',
-    profilPicSrc: './assets/img/logos/file.png'
+    profilPicSrc: './api/assets/img/logos/file.png'
   }),
   new User({
     id: '8',
@@ -107,7 +107,7 @@ export const users: User[] = [
     city: 'Bremen',
     postalCode: '28195',
     email: 'maya.schneider@example.com',
-    profilPicSrc: './assets/img/logos/file.png'
+    profilPicSrc: './api/assets/img/logos/file.png'
   }),
   new User({
     id: '9',
@@ -119,7 +119,7 @@ export const users: User[] = [
     city: 'Hanover',
     postalCode: '30159',
     email: 'finn.neumann@example.com',
-    profilPicSrc: './assets/img/logos/file.png'
+    profilPicSrc: './api/assets/img/logos/file.png'
   }),
   new User({
     id: '2',
@@ -134,111 +134,111 @@ export const users: User[] = [
     profilPicSrc: './assets/img/logos/file1.png'
   }),
   new User({
-      id: '3',
-      firstName: 'Clara',
-      lastName: 'Müller',
-      birthDate: new Date('1985-03-03T22:00:00.000Z'),
-      street: 'Bahnhofstraße',
-      houseNumber: '9',
-      city: 'München',
-      postalCode: '80331',
-      email: 'clara.mueller@example.com',
-      profilPicSrc: './assets/img/logos/file2.png'
-    }),
+    id: '3',
+    firstName: 'Clara',
+    lastName: 'Müller',
+    birthDate: new Date('1985-03-03T22:00:00.000Z'),
+    street: 'Bahnhofstraße',
+    houseNumber: '9',
+    city: 'München',
+    postalCode: '80331',
+    email: 'clara.mueller@example.com',
+    profilPicSrc: './assets/img/logos/file2.png'
+  }),
   new User({
-      id: '4',
-      firstName: 'David',
-      lastName: 'Schmidt',
-      birthDate: new Date('1978-08-14T22:00:00.000Z'),
-      street: 'Goethestraße',
-      houseNumber: '25',
-      city: 'Frankfurt',
-      postalCode: '60313',
-      email: 'david.schmidt@example.com',
-      profilPicSrc: './assets/img/logos/file3.png'
-    }),
+    id: '4',
+    firstName: 'David',
+    lastName: 'Schmidt',
+    birthDate: new Date('1978-08-14T22:00:00.000Z'),
+    street: 'Goethestraße',
+    houseNumber: '25',
+    city: 'Frankfurt',
+    postalCode: '60313',
+    email: 'david.schmidt@example.com',
+    profilPicSrc: './api/assets/img/logos/file.png'
+  }),
   new User({
-      id: '5',
-      firstName: 'Emma',
-      lastName: 'Weber',
-      birthDate: new Date('1995-01-23T22:00:00.000Z'),
-      street: 'Schillerstraße',
-      houseNumber: '7',
-      city: 'Berlin',
-      postalCode: '10115',
-      email: 'emma.weber@example.com',
-      profilPicSrc: './assets/img/logos/file4.png'
-    }),
+    id: '5',
+    firstName: 'Emma',
+    lastName: 'Weber',
+    birthDate: new Date('1995-01-23T22:00:00.000Z'),
+    street: 'Schillerstraße',
+    houseNumber: '7',
+    city: 'Berlin',
+    postalCode: '10115',
+    email: 'emma.weber@example.com',
+    profilPicSrc: './api/assets/img/logos/file.png'
+  }),
   new User({
-      id: '6',
-      firstName: 'Felix',
-      lastName: 'Fischer',
-      birthDate: new Date('1988-06-30T22:00:00.000Z'),
-      street: 'Ringstraße',
-      houseNumber: '10',
-      city: 'Stuttgart',
-      postalCode: '70173',
-      email: 'felix.fischer@example.com',
-      profilPicSrc: './assets/img/logos/file5.png'
-    }),
+    id: '6',
+    firstName: 'Felix',
+    lastName: 'Fischer',
+    birthDate: new Date('1988-06-30T22:00:00.000Z'),
+    street: 'Ringstraße',
+    houseNumber: '10',
+    city: 'Stuttgart',
+    postalCode: '70173',
+    email: 'felix.fischer@example.com',
+    profilPicSrc: './api/assets/img/logos/file.png'
+  }),
   new User({
-      id: '7',
-      firstName: 'Greta',
-      lastName: 'Krüger',
-      birthDate: new Date('1992-11-11T22:00:00.000Z'),
-      street: 'Marktplatz',
-      houseNumber: '4',
-      city: 'Düsseldorf',
-      postalCode: '40213',
-      email: 'greta.krueger@example.com',
-      profilPicSrc: './assets/img/logos/file6.png'
-    }),
+    id: '7',
+    firstName: 'Greta',
+    lastName: 'Krüger',
+    birthDate: new Date('1992-11-11T22:00:00.000Z'),
+    street: 'Marktplatz',
+    houseNumber: '4',
+    city: 'Düsseldorf',
+    postalCode: '40213',
+    email: 'greta.krueger@example.com',
+    profilPicSrc: './api/assets/img/logos/file.png'
+  }),
   new User({
-      id: '8',
-      firstName: 'Hans',
-      lastName: 'Wagner',
-      birthDate: new Date('1982-12-25T22:00:00.000Z'),
-      street: 'Hauptstraße',
-      houseNumber: '17',
-      city: 'Köln',
-      postalCode: '50667',
-      email: 'hans.wagner@example.com',
-      profilPicSrc: './assets/img/logos/file7.png'
-    }),
+    id: '8',
+    firstName: 'Hans',
+    lastName: 'Wagner',
+    birthDate: new Date('1982-12-25T22:00:00.000Z'),
+    street: 'Hauptstraße',
+    houseNumber: '17',
+    city: 'Köln',
+    postalCode: '50667',
+    email: 'hans.wagner@example.com',
+    profilPicSrc: './assets/img/logos/file7.png'
+  }),
   new User({
-      id: '9',
-      firstName: 'Isabel',
-      lastName: 'Schneider',
-      birthDate: new Date('2001-07-14T22:00:00.000Z'),
-      street: 'Bergstraße',
-      houseNumber: '21',
-      city: 'Dresden',
-      postalCode: '01067',
-      email: 'isabel.schneider@example.com',
-      profilPicSrc: './assets/img/logos/file8.png'
-    }),
+    id: '9',
+    firstName: 'Isabel',
+    lastName: 'Schneider',
+    birthDate: new Date('2001-07-14T22:00:00.000Z'),
+    street: 'Bergstraße',
+    houseNumber: '21',
+    city: 'Dresden',
+    postalCode: '01067',
+    email: 'isabel.schneider@example.com',
+    profilPicSrc: './api/assets/img/logos/file.png'
+  }),
   new User({
-      id: '10',
-      firstName: 'Jonas',
-      lastName: 'Becker',
-      birthDate: new Date('1984-02-18T22:00:00.000Z'),
-      street: 'Gartenweg',
-      houseNumber: '11',
-      city: 'Hannover',
-      postalCode: '30159',
-      email: 'jonas.becker@example.com',
-      profilPicSrc: './assets/img/logos/file9.png'
-    }),
+    id: '10',
+    firstName: 'Jonas',
+    lastName: 'Becker',
+    birthDate: new Date('1984-02-18T22:00:00.000Z'),
+    street: 'Gartenweg',
+    houseNumber: '11',
+    city: 'Hannover',
+    postalCode: '30159',
+    email: 'jonas.becker@example.com',
+    profilPicSrc: './api/assets/img/logos/file.png'
+  }),
   new User({
-      id: '11',
-      firstName: 'Klara',
-      lastName: 'Seidel',
-      birthDate: new Date('1997-09-09T22:00:00.000Z'),
-      street: 'Blumenstraße',
-      houseNumber: '6',
-      city: 'Leipzig',
-      postalCode: '04109',
-      email: 'klara.seidel@example.com',
-      profilPicSrc: './assets/img/logos/file10.png'
-    })
+    id: '11',
+    firstName: 'Klara',
+    lastName: 'Seidel',
+    birthDate: new Date('1997-09-09T22:00:00.000Z'),
+    street: 'Blumenstraße',
+    houseNumber: '6',
+    city: 'Leipzig',
+    postalCode: '04109',
+    email: 'klara.seidel@example.com',
+    profilPicSrc: './api/assets/img/logos/file.png'
+  })
 ];
