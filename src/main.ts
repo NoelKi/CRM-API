@@ -14,12 +14,18 @@ app.use(express.json());
 const port = 3000;
 
 app.get('/api/users', (req, res) => {
-  // Send a response to the client
-  res.send(thisUsers);
+  const pageSize = parseInt((req.query.pageSize as string) || '10', 10);
+  const pageIndex = parseInt((req.query.pageIndex as string) || '0', 10); 
+  const start: number = pageIndex * pageSize;
+  const end = start + pageSize;
+  const reqUsers = thisUsers.slice(start,end);
+  const length = thisUsers.length;
+  res.send(
+    {users: reqUsers,
+      totalLength: length});
 });
 
 app.get('/api/users/:id', (req, res) => {
-  
   const id = req.params.id;
   console.log(thisUsers);
   const user = thisUsers.find((user) => user.id === id)
