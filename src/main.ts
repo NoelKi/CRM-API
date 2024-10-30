@@ -1,5 +1,7 @@
 // Import the 'express' module
+import { log } from 'console';
 import express from 'express';
+import fileUpload, { UploadedFile } from 'express-fileupload';
 import * as fs from 'fs';
 import path from 'path';
 import { users } from './fake-db/user.data';
@@ -12,6 +14,7 @@ const app = express();
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+app.use(fileUpload());
 
 // Set the port number for the server
 const port = 3000;
@@ -53,7 +56,7 @@ app.get('/api/users', (req, res) => {
   const start: number = pageIndex * pageSize;
   const end = start + pageSize;
   const reqUsers = filteredUsers.slice(start, end);
-  const length = thisUsers.length;
+  const length = filteredUsers.length;
   res.send({ users: reqUsers, totalLength: length });
 });
 
@@ -94,12 +97,35 @@ app.put('/api/users', (req, res) => {
   const newUser = req.body;
   thisUsers = thisUsers.map((user) => {
     if (user.id == newUser.id) {
-      user = newUser;
+      Object.assign(user, newUser);
       isEdit = true;
     }
     return user;
   });
   res.send(isEdit ? { status: 'OK' } : { status: 'Error' });
+});
+
+app.put('/api/users/img', (req, res) => {
+  let isEdit = false;
+  const userId = req.body.id;
+  // const file = req.body.file;
+  const file = req.files?.file as UploadedFile;
+
+  let imagePath = '';
+  log('hallo ' + userId + file);
+  thisUsers = thisUsers.map((user) => {
+    if (user.id == userId) {
+      isEdit = true;
+      imagePath = path.join(__dirname, 'assets', 'img', 'logos', userId);
+      console.log(`File upload path: ${imagePath}`);
+      file.mv(imagePath);
+    }
+    return user;
+  });
+  res.send({
+    status: isEdit ? 'OK' : 'Error',
+    path: imagePath
+  });
 });
 
 // Start the server and listen on the specified port
