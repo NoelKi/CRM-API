@@ -1,28 +1,30 @@
 // Import the 'express' module
-import { log } from 'console';
 import express from 'express';
 import fileUpload, { UploadedFile } from 'express-fileupload';
-import * as fs from 'fs';
+import fs from 'fs';
 import path from 'path';
 import { users } from './fake-db/user.data';
 import { User } from './models/user.model';
 let thisUsers = users;
 
+// Rootpath for images
 const ROOT_PATH = path.join(__dirname, '/assets/img/logos');
+
 // Create an Express application
 const app = express();
 
 // Middleware to parse JSON bodies
-app.use(express.json());
 app.use(fileUpload());
+app.use(express.json());
 
 // Set the port number for the server
 const port = 3000;
 
-app.get('/api/assets/img/logos/:filename', (req, res) => {
-  console.log(ROOT_PATH);
-  const filename = req.params.filename;
-  const filePath = path.join(ROOT_PATH, filename);
+app.get('/api/assets/img/logos/:userId/:filename', (req, res) => {
+  const { userId, filename } = req.params;
+  console.log(userId, filename);
+
+  const filePath = path.join(ROOT_PATH, userId, filename);
   if (fs.existsSync(filePath)) {
     res.sendFile(filePath, (err) => {
       if (err) {
@@ -38,6 +40,15 @@ app.get('/api/assets/img/logos/:filename', (req, res) => {
       }
     });
   }
+});
+
+app.get('/api/assets/img/logos/:id', (req, res) => {
+  res.sendFile(ROOT_PATH + '/profilPicDefault.jpg', (err) => {
+    if (err) {
+      console.error('Error sending file:', err);
+      res.sendStatus(404);
+    }
+  });
 });
 
 app.get('/api/users', (req, res) => {
@@ -62,9 +73,9 @@ app.get('/api/users', (req, res) => {
 
 app.get('/api/users/:id', (req, res) => {
   const id = req.params.id;
-  console.log(thisUsers);
+  // console.log(thisUsers);
   const user = thisUsers.find((user) => user.id === id);
-  console.log(user);
+  // console.log(user);
   if (user) {
     res.send(user);
     return;
@@ -105,26 +116,70 @@ app.put('/api/users', (req, res) => {
   res.send(isEdit ? { status: 'OK' } : { status: 'Error' });
 });
 
-app.put('/api/users/img', (req, res) => {
-  let isEdit = false;
+app.put('/api/assets/img/logos', (req, res) => {
   const userId = req.body.id;
-  // const file = req.body.file;
   const file = req.files?.file as UploadedFile;
+  console.log(file.name, file);
 
-  let imagePath = '';
-  log('hallo ' + userId + file);
-  thisUsers = thisUsers.map((user) => {
-    if (user.id == userId) {
-      isEdit = true;
-      imagePath = path.join(__dirname, 'assets', 'img', 'logos', userId);
-      console.log(`File upload path: ${imagePath}`);
-      file.mv(imagePath);
+  // Überprüfen, ob eine Datei hochgeladen wurde
+  if (!file) {
+    res.send({
+      status: 'Error',
+      message: 'No file uploaded.'
+    });
+    return;
+  }
+
+  // Validierung von userId und filename
+  if (!userId || typeof userId !== 'string') {
+    res.send({
+      status: 'Error',
+      message: 'Invalid user ID.'
+    });
+    return;
+  }
+
+  // Pfad zum Speichern der Datei
+  const imagePath = path.join(__dirname, 'assets', 'img', 'logos', userId);
+  const filePath = path.join(imagePath, file.name);
+
+  // Verzeichnis erstellen, falls es nicht existiert
+  if (!fs.existsSync(imagePath)) {
+    fs.mkdirSync(imagePath, { recursive: true });
+  }
+
+  // Datei speichern
+  file.mv(filePath, (err) => {
+    if (err) {
+      console.error('Error saving file:', err);
+      return res.status(500).send('Error saving file.');
     }
-    return user;
-  });
-  res.send({
-    status: isEdit ? 'OK' : 'Error',
-    path: imagePath
+
+    // Benutzerliste aktualisieren
+    let isEdit = false;
+    let path = '';
+    thisUsers = thisUsers.map((user) => {
+      if (user.id === userId) {
+        isEdit = true;
+        user.profilPicSrc = `/api/assets/img/logos/${userId}/${file.name}`;
+        path = user.profilPicSrc;
+        console.log('uploaded File ' + isEdit);
+      }
+      return user;
+    });
+
+    if (!isEdit) {
+      res.send({
+        status: 'Error',
+        message: 'No user found for upload.'
+      });
+      return;
+    }
+
+    res.send({
+      status: 'OK',
+      profilPicSrc: path
+    });
   });
 });
 
