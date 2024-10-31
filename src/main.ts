@@ -73,9 +73,8 @@ app.get('/api/users', (req, res) => {
 
 app.get('/api/users/:id', (req, res) => {
   const id = req.params.id;
-  // console.log(thisUsers);
   const user = thisUsers.find((user) => user.id === id);
-  // console.log(user);
+
   if (user) {
     res.send(user);
     return;
@@ -99,7 +98,6 @@ app.delete('/api/users/:id', (req, res) => {
     }
     return id !== userId;
   });
-  // res.sendStatus(filter ? 200 : 400);
   res.send(filter ? { status: 'OK' } : { status: 'Error' });
 });
 
