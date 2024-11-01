@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import { users } from './fake-db/user.data';
-import { User } from './models/user.model';
+import { users } from '../fake-db/user.data';
+import { User } from '../models/user.model';
 
 let thisUsers = users;
 const userRouter = Router();

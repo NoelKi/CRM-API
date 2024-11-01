@@ -1,7 +1,6 @@
 import express from 'express';
 import path from 'path';
-import assetsRouter from './assets.routes';
-import userRouter from './user.routes';
+import myRoutes from './routes';
 
 // Erstellen Sie eine Express-Anwendung
 const app = express();
@@ -16,8 +15,8 @@ const port = 3000;
 const ROOT_PATH = path.join(__dirname, '/assets/img/logos');
 
 // Binden Sie den userRouter unter dem Pfad '/api' ein
-app.use('/api', userRouter);
-app.use('/api', assetsRouter);
+app.use('/api', myRoutes.userRouter);
+app.use('/api', myRoutes.assetsRouter);
 
 // Starten Sie den Server und hören Sie auf den angegebenen Port
 app.listen(port, () => {

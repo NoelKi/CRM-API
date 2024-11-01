@@ -2,7 +2,7 @@ import { Router } from 'express';
 import fileUpload, { UploadedFile } from 'express-fileupload';
 import fs from 'fs';
 import path from 'path';
-import { users } from './fake-db/user.data';
+import { users } from '../fake-db/user.data';
 
 let thisUsers = users;
 const assetsRouter = Router();
