@@ -12,7 +12,7 @@ userRouter.get('/users', (req, res) => {
   const pageSize = parseInt((req.query.pageSize as string) || '10', 10);
   const pageIndex = parseInt((req.query.pageIndex as string) || '0', 10);
   const sortField = req.query.sortField as string;
-  const sortDirection = req.query.sortDirection as string;
+  const sortDirection = (req.query.sortDirection as string) || 'asc';
   let filteredUsers = thisUsers;
   if (filter) {
     filteredUsers = thisUsers.filter(
@@ -24,21 +24,7 @@ userRouter.get('/users', (req, res) => {
   }
 
   if (sortField) {
-    const validSortFields: Array<keyof User> = ['firstName', 'lastName', 'email'];
-    const validSortDirections = ['asc', 'desc', ''];
-
-    if (!validSortFields.includes(sortField as keyof User)) {
-      res.status(400).send({ error: 'Invalid sort field' });
-      return;
-    }
-
-    if (!validSortDirections.includes(sortDirection)) {
-      res.status(400).send({ error: 'Invalid sort direction' });
-      return;
-    }
-
     const field = sortField as keyof User;
-    const direction = sortDirection || 'asc';
 
     filteredUsers.sort((a, b) => {
       let fieldA = a[field];
@@ -53,10 +39,10 @@ userRouter.get('/users', (req, res) => {
       fieldB = String(fieldB).toLowerCase();
 
       if (fieldA < fieldB) {
-        return direction === 'asc' ? -1 : 1;
+        return sortDirection === 'asc' ? -1 : 1;
       }
       if (fieldA > fieldB) {
-        return direction === 'asc' ? 1 : -1;
+        return sortDirection === 'asc' ? 1 : -1;
       }
       return 0;
     });
