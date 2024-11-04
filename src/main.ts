@@ -1,5 +1,5 @@
 import express from 'express';
-import myRoutes from './routes';
+import myRoutes from './routes'; // include index
 
 // Erstellen Sie eine Express-Anwendung
 const app = express();
