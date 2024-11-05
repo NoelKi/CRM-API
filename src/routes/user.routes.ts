@@ -22,9 +22,9 @@ userRouter.get('/users', (req, res) => {
         user.email.toLowerCase().includes(filter.toLowerCase())
     );
   }
-
   if (sortField) {
     const field = sortField as keyof User;
+    console.log(sortField);
 
     filteredUsers.sort((a, b) => {
       let fieldA = a[field];
@@ -34,20 +34,39 @@ userRouter.get('/users', (req, res) => {
       if (fieldA === undefined || fieldA === null) fieldA = '';
       if (fieldB === undefined || fieldB === null) fieldB = '';
 
-      // Konvertieren in Strings für den Vergleich
-      fieldA = String(fieldA).toLowerCase();
-      fieldB = String(fieldB).toLowerCase();
+      if (field === 'birthDate') {
+        // Konvertiere in Date-Objekte
+        const dateA = new Date(fieldA);
+        const dateB = new Date(fieldB);
+        console.log(dateA.getTime());
 
-      if (fieldA < fieldB) {
-        return sortDirection === 'asc' ? -1 : 1;
+        // Überprüfe, ob die Datumswerte gültig sind
+        if (isNaN(dateA.getTime()) || isNaN(dateB.getTime())) {
+          return 0; // Keine Änderung in der Sortierung bei ungültigen Daten
+        }
+
+        if (dateA.getTime() > dateB.getTime()) {
+          return sortDirection === 'asc' ? -1 : 1;
+        }
+        if (dateA.getTime() < dateB.getTime()) {
+          return sortDirection === 'asc' ? 1 : -1;
+        }
+        return 0;
+      } else {
+        // Konvertieren in Strings für den Vergleich
+        const valueA = String(fieldA).toLowerCase();
+        const valueB = String(fieldB).toLowerCase();
+
+        if (valueA < valueB) {
+          return sortDirection === 'asc' ? -1 : 1;
+        }
+        if (valueA > valueB) {
+          return sortDirection === 'asc' ? 1 : -1;
+        }
+        return 0;
       }
-      if (fieldA > fieldB) {
-        return sortDirection === 'asc' ? 1 : -1;
-      }
-      return 0;
     });
   }
-
   const start: number = pageIndex * pageSize;
   const end = start + pageSize;
   const reqUsers = filteredUsers.slice(start, end);
