@@ -10,15 +10,15 @@ const assetsRouter = Router();
 // Rootpath for images
 const ROOT_PATH = path.join(__dirname, '/assets/img/logos');
 
-// Middleware für Dateiupload
+// Middleware for fileupload
 assetsRouter.use(fileUpload());
-// Route: PUT /api/assets/img/logos
 
+// Route: PUT /api/assets/img/logos
 assetsRouter.put('/assets/img/logos', (req, res) => {
   const userId = req.body.id;
   const file = req.files?.file as UploadedFile;
 
-  // Überprüfen, ob eine Datei hochgeladen wurde
+  // Check whether a file has been uploaded
   if (!file) {
     res.send({
       status: 'Error',
@@ -27,7 +27,7 @@ assetsRouter.put('/assets/img/logos', (req, res) => {
     return;
   }
 
-  // Validierung von userId und filename
+  // Validation of userId and filename
   if (!userId || typeof userId !== 'string') {
     res.send({
       status: 'Error',
@@ -36,23 +36,23 @@ assetsRouter.put('/assets/img/logos', (req, res) => {
     return;
   }
 
-  // Pfad zum Speichern der Datei
+  // Path for saving the file
   const imagePath = path.join(__dirname, 'assets', 'img', 'logos', userId);
   const filePath = path.join(imagePath, file.name);
 
-  // Verzeichnis erstellen, falls es nicht existiert
+  // Create directory if it does not exist
   if (!fs.existsSync(imagePath)) {
     fs.mkdirSync(imagePath, { recursive: true });
   }
 
-  // Datei speichern
+  // Save file
   file.mv(filePath, (err) => {
     if (err) {
       console.error('Error saving file:', err);
       return res.status(500).send('Error saving file.');
     }
 
-    // Benutzerliste aktualisieren
+    // Update userlist
     let isEdit = false;
     let profilPicSrc = '';
     thisUsers = thisUsers.map((user) => {
@@ -101,5 +101,5 @@ assetsRouter.get('/assets/img/logos/:userId/:filename', (req, res) => {
   }
 });
 
-// Exportieren des Routers
+// Export the router
 export default assetsRouter;

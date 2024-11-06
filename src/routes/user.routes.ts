@@ -1,5 +1,4 @@
 import { Router } from 'express';
-
 import { users } from '../fake-db/user.data';
 import { User } from '../models/user.model';
 
@@ -23,49 +22,7 @@ userRouter.get('/users', (req, res) => {
     );
   }
   if (sortField) {
-    const field = sortField as keyof User;
-    console.log(sortField);
-
-    filteredUsers.sort((a, b) => {
-      let fieldA = a[field];
-      let fieldB = b[field];
-
-      // Umgang mit undefined oder null
-      if (fieldA === undefined || fieldA === null) fieldA = '';
-      if (fieldB === undefined || fieldB === null) fieldB = '';
-
-      if (field === 'birthDate') {
-        // Konvertiere in Date-Objekte
-        const dateA = new Date(fieldA);
-        const dateB = new Date(fieldB);
-        console.log(dateA.getTime());
-
-        // Überprüfe, ob die Datumswerte gültig sind
-        if (isNaN(dateA.getTime()) || isNaN(dateB.getTime())) {
-          return 0; // Keine Änderung in der Sortierung bei ungültigen Daten
-        }
-
-        if (dateA.getTime() > dateB.getTime()) {
-          return sortDirection === 'asc' ? -1 : 1;
-        }
-        if (dateA.getTime() < dateB.getTime()) {
-          return sortDirection === 'asc' ? 1 : -1;
-        }
-        return 0;
-      } else {
-        // Konvertieren in Strings für den Vergleich
-        const valueA = String(fieldA).toLowerCase();
-        const valueB = String(fieldB).toLowerCase();
-
-        if (valueA < valueB) {
-          return sortDirection === 'asc' ? -1 : 1;
-        }
-        if (valueA > valueB) {
-          return sortDirection === 'asc' ? 1 : -1;
-        }
-        return 0;
-      }
-    });
+    filteredUsers = sortingUsers(sortField, sortDirection, filteredUsers);
   }
   const start: number = pageIndex * pageSize;
   const end = start + pageSize;
@@ -120,6 +77,54 @@ userRouter.put('/users', (req, res) => {
   });
   res.send(isEdit ? { status: 'OK' } : { status: 'Error' });
 });
+
+// Helpfunctions to make code more clean
+
+// Sorting users
+function sortingUsers(sortKind: string, sortDirection: string, users: User[]) {
+  const field = sortKind as keyof User;
+
+  users.sort((a, b) => {
+    let fieldA = a[field];
+    let fieldB = b[field];
+
+    // Umgang mit undefined oder null
+    if (fieldA === undefined || fieldA === null) fieldA = '';
+    if (fieldB === undefined || fieldB === null) fieldB = '';
+
+    if (field === 'birthDate') {
+      // Konvertiere in Date-Objekte
+      const dateA = new Date(fieldA);
+      const dateB = new Date(fieldB);
+
+      // Überprüfe, ob die Datumswerte gültig sind
+      if (isNaN(dateA.getTime()) || isNaN(dateB.getTime())) {
+        return 0; // Keine Änderung in der Sortierung bei ungültigen Daten
+      }
+
+      if (dateA.getTime() > dateB.getTime()) {
+        return sortDirection === 'asc' ? -1 : 1;
+      }
+      if (dateA.getTime() < dateB.getTime()) {
+        return sortDirection === 'asc' ? 1 : -1;
+      }
+      return 0;
+    } else {
+      // Konvertieren in Strings für den Vergleich
+      const valueA = String(fieldA).toLowerCase();
+      const valueB = String(fieldB).toLowerCase();
+
+      if (valueA < valueB) {
+        return sortDirection === 'asc' ? -1 : 1;
+      }
+      if (valueA > valueB) {
+        return sortDirection === 'asc' ? 1 : -1;
+      }
+      return 0;
+    }
+  });
+  return users;
+}
 
 // Exportieren des Routers
 export default userRouter;
