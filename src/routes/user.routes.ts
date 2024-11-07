@@ -7,17 +7,20 @@ import { User } from '../models/user.model';
 let thisUsers = users;
 const router = Router();
 
+//toDo exe Anschauen
+
 // helpfunction
-// router.post('/fillDb', async (req, res) => {
-//   try {
-//     const usersWithoutId = users.map(({ id, ...user }) => user);
-//     await Promise.all(usersWithoutId.map((user) => Users.create(user)));
-//     res.status(200).send({ message: 'Datenbank erfolgreich befüllt' });
-//   } catch (error) {
-//     console.error('Fehler beim Befüllen der Datenbank:', error);
-//     res.status(500).send({ message: 'Fehler beim Befüllen der Datenbank', error });
-//   }
-// });
+router.get('/fillDb', (req, res) => {
+  console.log('trigger');
+  // try {
+  //   const usersWithoutId = users.map(({ id, ...user }) => user);
+  //   await Promise.all(usersWithoutId.map((user) => Users.create(user)));
+  //   res.status(200).send({ message: 'Datenbank erfolgreich befüllt' });
+  // } catch (error) {
+  //   console.error('Fehler beim Befüllen der Datenbank:', error);
+  //   res.status(500).send({ message: 'Fehler beim Befüllen der Datenbank', error });
+  // }
+});
 
 // Route: GET /api/users
 router.get('/users', async (req, res) => {
@@ -70,10 +73,9 @@ router.get('/users', async (req, res) => {
 });
 
 // Route: GET /api/users/:id
-router.get('/users/:id', (req, res) => {
-  const id = req.params.id;
-  const user = thisUsers.find((user) => user.id === id);
-
+router.get('/users/:id', async (req, res) => {
+  let id = req.params.id;
+  let user = await Users.findById({ _id: `${id}` }).exec();
   if (user) {
     res.send(user);
     return;
@@ -82,87 +84,50 @@ router.get('/users/:id', (req, res) => {
 });
 
 // Route: POST /api/users
-router.post('/users', (req, res) => {
-  req.body.id = String(thisUsers.length);
+router.post('/users', async (req, res) => {
+  // req.body.id = String(thisUsers.length);
   const user = new User(req.body);
-  thisUsers.push(user);
-  res.send({ status: 'OK', id: user.id, profilPicSrc: user.profilPicSrc });
+  await Users.create(user);
+
+  res.send({ status: 'OK', profilPicSrc: user.profilPicSrc });
 });
 
 // Route: DELETE /api/users/:id
-router.delete('/users/:id', (req, res) => {
+router.delete('/users/:id', async (req, res) => {
   const userId = req.params.id;
-  let filter = false;
-  thisUsers = thisUsers.filter(({ id }) => {
-    if (userId === id) {
-      filter = true;
-    }
-    return id !== userId;
-  });
-  res.send(filter ? { status: 'OK' } : { status: 'Error' });
+  try {
+    const user = await Users.findOneAndDelete({ _id: `${userId}` });
+    res.send({ status: 'OK' });
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.send({ status: 'Error' });
+  }
 });
 
 // Route: PUT /api/users
-router.put('/users', (req, res) => {
-  let isEdit = false;
-  const newUser = req.body;
-  thisUsers = thisUsers.map((user) => {
-    if (user.id == newUser.id) {
-      Object.assign(user, newUser);
-      isEdit = true;
-    }
-    return user;
-  });
-  res.send(isEdit ? { status: 'OK' } : { status: 'Error' });
+router.put('/users', async (req, res) => {
+  const editedUser = req.body;
+  const userId = editedUser._id;
+  const filter = { _id: `${userId}` };
+  const update = {
+    firstName: editedUser.firstName,
+    lastName: editedUser.lastName,
+    email: editedUser.email,
+    birthDate: editedUser.birthDate,
+    city: editedUser.city,
+    street: editedUser.street,
+    houseNumber: editedUser.houseNumber,
+    postalCode: editedUser.postalCode,
+    profilPicSrc: editedUser.profilePicSrc
+  };
+  try {
+    await Users.findOneAndUpdate(filter, update);
+    res.send({ status: 'OK' });
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.send({ status: 'Error' });
+  }
 });
-
-// Helpfunctions to make code more clean
-
-// Sorting users
-function sortingUsers(sortKind: string, sortDirection: string, users: IUser[]) {
-  const field = sortKind as keyof IUser;
-
-  users.sort((a, b) => {
-    let fieldA = a[field];
-    let fieldB = b[field];
-
-    // Umgang mit undefined oder null
-    if (fieldA === undefined || fieldA === null) fieldA = '';
-    if (fieldB === undefined || fieldB === null) fieldB = '';
-
-    if (field === 'birthDate') {
-      // Konvertiere in Date-Objekte
-      const dateA = new Date(fieldA);
-      const dateB = new Date(fieldB);
-
-      // Überprüfe, ob die Datumswerte gültig sind
-      if (isNaN(dateA.getTime()) || isNaN(dateB.getTime())) {
-        return 0; // Keine Änderung in der Sortierung bei ungültigen Daten
-      }
-
-      if (dateA.getTime() > dateB.getTime()) {
-        return sortDirection === 'asc' ? -1 : 1;
-      }
-      if (dateA.getTime() < dateB.getTime()) {
-        return sortDirection === 'asc' ? 1 : -1;
-      }
-      return 0;
-    } else {
-      // Konvertieren in Strings für den Vergleich
-      const valueA = String(fieldA).toLowerCase();
-      const valueB = String(fieldB).toLowerCase();
-
-      if (valueA < valueB) {
-        return sortDirection === 'asc' ? -1 : 1;
-      }
-      if (valueA > valueB) {
-        return sortDirection === 'asc' ? 1 : -1;
-      }
-      return 0;
-    }
-  });
-  return users;
-}
 
 // Exportieren des Routers
 export default router;

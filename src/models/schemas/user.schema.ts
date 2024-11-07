@@ -1,3 +1,5 @@
+// ToDo : default für profilPicSrc anlegen
+
 import { Schema } from 'mongoose';
 
 export const userSchema = new Schema({
