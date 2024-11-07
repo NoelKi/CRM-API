@@ -8,51 +8,65 @@ let thisUsers = users;
 const router = Router();
 
 // helpfunction
-
-router.post('/fillDb', async (req, res) => {
-  try {
-    const usersWithoutId = users.map(({ id, ...user }) => user);
-    await Promise.all(usersWithoutId.map((user) => Users.create(user)));
-    res.status(200).send({ message: 'Datenbank erfolgreich befüllt' });
-  } catch (error) {
-    console.error('Fehler beim Befüllen der Datenbank:', error);
-    res.status(500).send({ message: 'Fehler beim Befüllen der Datenbank', error });
-  }
-});
+// router.post('/fillDb', async (req, res) => {
+//   try {
+//     const usersWithoutId = users.map(({ id, ...user }) => user);
+//     await Promise.all(usersWithoutId.map((user) => Users.create(user)));
+//     res.status(200).send({ message: 'Datenbank erfolgreich befüllt' });
+//   } catch (error) {
+//     console.error('Fehler beim Befüllen der Datenbank:', error);
+//     res.status(500).send({ message: 'Fehler beim Befüllen der Datenbank', error });
+//   }
+// });
 
 // Route: GET /api/users
 router.get('/users', async (req, res) => {
   const filter = (req.query.filter as string) || '';
   const pageSize = parseInt((req.query.pageSize as string) || '10', 10);
   const pageIndex = parseInt((req.query.pageIndex as string) || '0', 10);
-  const sortField = req.query.sortField as string;
-  const sortDirection = (req.query.sortDirection as string) || 'asc';
+  const sortField = (req.query.sortField as string) || 'firstName';
+  const sortDirection = req.query.sortDirection as string;
+
   let filteredUsers: IUser[] = [];
-  // todo: mongoDb filter with find()?
-  // do filter and sorting and paginating and pagelength with mongoose
-  // add more users to db
+  let totalLength = 0;
+
   try {
-    filteredUsers = await Users.find({});
+    // Baue die Query auf
+    let query = Users.find({
+      $or: [
+        { firstName: { $regex: filter, $options: 'i' } },
+        { lastName: { $regex: filter, $options: 'i' } },
+        { email: { $regex: filter, $options: 'i' } },
+        { street: { $regex: filter, $options: 'i' } }
+      ]
+    })
+      .limit(pageSize)
+      .skip(pageSize * pageIndex);
+
+    // Sortierung nur hinzufügen, wenn `sortDirection` gesetzt ist
+    if (sortDirection) {
+      query = query.sort({ [sortField]: sortDirection === 'desc' ? -1 : 1 });
+    }
+
+    // Führe die Query aus und speichere das Ergebnis
+    filteredUsers = await query.exec();
+
+    // Zähle die Anzahl der gefilterten Benutzer
+    totalLength = await Users.countDocuments({
+      $or: [
+        { firstName: { $regex: filter, $options: 'i' } },
+        { lastName: { $regex: filter, $options: 'i' } },
+        { email: { $regex: filter, $options: 'i' } }
+      ]
+    });
   } catch (error) {
     console.error(error);
+    res.status(500).send({ error: 'Fehler beim Abrufen der Benutzer' });
+    return;
   }
 
-  if (filter) {
-    filteredUsers = filteredUsers.filter(
-      (user) =>
-        user.firstName.toLowerCase().includes(filter.toLowerCase()) ||
-        user.lastName.toLowerCase().includes(filter.toLowerCase()) ||
-        user.email.toLowerCase().includes(filter.toLowerCase())
-    );
-  }
-  if (sortField) {
-    filteredUsers = sortingUsers(sortField, sortDirection, filteredUsers);
-  }
-  const start: number = pageIndex * pageSize;
-  const end = start + pageSize;
-  const reqUsers = filteredUsers.slice(start, end);
-  const length = filteredUsers.length;
-  res.send({ users: reqUsers, totalLength: length });
+  // Ergebnis senden
+  res.send({ users: filteredUsers, totalLength });
 });
 
 // Route: GET /api/users/:id
