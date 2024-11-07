@@ -1,4 +1,6 @@
 import express from 'express';
+import mongoose from 'mongoose';
+import environment from './environments/environment';
 import myRoutes from './routes'; // include index
 
 // Erstellen Sie eine Express-Anwendung
@@ -8,7 +10,7 @@ const app = express();
 app.use(express.json());
 
 // Setzen Sie die Portnummer für den Server
-const port = 3000;
+const port = environment.port;
 
 // Binden Sie den userRouter unter dem Pfad '/api' ein
 app.use('/api', myRoutes.userRouter);
@@ -18,3 +20,15 @@ app.use('/api', myRoutes.assetsRouter);
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+
+connectMongo();
+
+async function connectMongo() {
+  const { database, host } = environment.mongo;
+  try {
+    await mongoose.connect(`mongodb://${host}/${database}`);
+    console.log('Mongo Server is running on ' + host + '/' + database);
+  } catch (error) {
+    console.error(error);
+  }
+}

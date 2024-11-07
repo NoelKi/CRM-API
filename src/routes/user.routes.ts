@@ -1,20 +1,44 @@
 import { Router } from 'express';
 import { users } from '../fake-db/user.data';
+import { Users } from '../models';
+import { IUser } from '../models/schemas/user.schema';
 import { User } from '../models/user.model';
 
 let thisUsers = users;
-const userRouter = Router();
+const router = Router();
+
+// helpfunction
+
+router.post('/fillDb', async (req, res) => {
+  try {
+    const usersWithoutId = users.map(({ id, ...user }) => user);
+    await Promise.all(usersWithoutId.map((user) => Users.create(user)));
+    res.status(200).send({ message: 'Datenbank erfolgreich befüllt' });
+  } catch (error) {
+    console.error('Fehler beim Befüllen der Datenbank:', error);
+    res.status(500).send({ message: 'Fehler beim Befüllen der Datenbank', error });
+  }
+});
 
 // Route: GET /api/users
-userRouter.get('/users', (req, res) => {
+router.get('/users', async (req, res) => {
   const filter = (req.query.filter as string) || '';
   const pageSize = parseInt((req.query.pageSize as string) || '10', 10);
   const pageIndex = parseInt((req.query.pageIndex as string) || '0', 10);
   const sortField = req.query.sortField as string;
   const sortDirection = (req.query.sortDirection as string) || 'asc';
-  let filteredUsers = thisUsers;
+  let filteredUsers: IUser[] = [];
+  // todo: mongoDb filter with find()?
+  // do filter and sorting and paginating and pagelength with mongoose
+  // add more users to db
+  try {
+    filteredUsers = await Users.find({});
+  } catch (error) {
+    console.error(error);
+  }
+
   if (filter) {
-    filteredUsers = thisUsers.filter(
+    filteredUsers = filteredUsers.filter(
       (user) =>
         user.firstName.toLowerCase().includes(filter.toLowerCase()) ||
         user.lastName.toLowerCase().includes(filter.toLowerCase()) ||
@@ -32,7 +56,7 @@ userRouter.get('/users', (req, res) => {
 });
 
 // Route: GET /api/users/:id
-userRouter.get('/users/:id', (req, res) => {
+router.get('/users/:id', (req, res) => {
   const id = req.params.id;
   const user = thisUsers.find((user) => user.id === id);
 
@@ -44,7 +68,7 @@ userRouter.get('/users/:id', (req, res) => {
 });
 
 // Route: POST /api/users
-userRouter.post('/users', (req, res) => {
+router.post('/users', (req, res) => {
   req.body.id = String(thisUsers.length);
   const user = new User(req.body);
   thisUsers.push(user);
@@ -52,7 +76,7 @@ userRouter.post('/users', (req, res) => {
 });
 
 // Route: DELETE /api/users/:id
-userRouter.delete('/users/:id', (req, res) => {
+router.delete('/users/:id', (req, res) => {
   const userId = req.params.id;
   let filter = false;
   thisUsers = thisUsers.filter(({ id }) => {
@@ -65,7 +89,7 @@ userRouter.delete('/users/:id', (req, res) => {
 });
 
 // Route: PUT /api/users
-userRouter.put('/users', (req, res) => {
+router.put('/users', (req, res) => {
   let isEdit = false;
   const newUser = req.body;
   thisUsers = thisUsers.map((user) => {
@@ -81,8 +105,8 @@ userRouter.put('/users', (req, res) => {
 // Helpfunctions to make code more clean
 
 // Sorting users
-function sortingUsers(sortKind: string, sortDirection: string, users: User[]) {
-  const field = sortKind as keyof User;
+function sortingUsers(sortKind: string, sortDirection: string, users: IUser[]) {
+  const field = sortKind as keyof IUser;
 
   users.sort((a, b) => {
     let fieldA = a[field];
@@ -127,4 +151,4 @@ function sortingUsers(sortKind: string, sortDirection: string, users: User[]) {
 }
 
 // Exportieren des Routers
-export default userRouter;
+export default router;
