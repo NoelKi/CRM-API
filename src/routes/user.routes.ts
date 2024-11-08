@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { Users } from '../models';
-import { IUser } from '../models/schemas/user.schema';
 
 const router = Router();
 
@@ -21,74 +20,55 @@ const router = Router();
 // Route: GET /api/users
 router.get('/users', async (req, res) => {
   const filter = (req.query.filter as string) || '';
-  const pageSize = parseInt((req.query.pageSize as string) || '10', 10);
-  const pageIndex = parseInt((req.query.pageIndex as string) || '0', 10);
-  const sortField = (req.query.sortField as string) || 'firstName';
-  const sortDirection = req.query.sortDirection as string;
-
-  let filteredUsers: IUser[] = [];
-  let totalLength = 0;
+  const pageSize = Number(req.query.pageSize) || 5;
+  const pageIndex = Number(req.query.pageIndex) || 0;
+  const sortField = (req.query.sortField as string) || '_id';
+  const sortDirection = (req.query.sortDirection as 'asc' | 'desc') || 'desc';
+  const $or = [
+    { firstName: { $regex: filter, $options: 'i' } },
+    { lastName: { $regex: filter, $options: 'i' } },
+    { email: { $regex: filter, $options: 'i' } },
+    { street: { $regex: filter, $options: 'i' } }
+  ];
 
   try {
     // Baue die Query auf
-    let query = Users.find({
-      $or: [
-        { firstName: { $regex: filter, $options: 'i' } },
-        { lastName: { $regex: filter, $options: 'i' } },
-        { email: { $regex: filter, $options: 'i' } },
-        { street: { $regex: filter, $options: 'i' } }
-      ]
-    })
+    const filteredUsers = await Users.find({ $or })
       .limit(pageSize)
-      .skip(pageSize * pageIndex);
+      .skip(pageSize * pageIndex)
+      .sort({ [sortField]: sortDirection });
 
-    // Sortierung nur hinzufügen, wenn `sortDirection` gesetzt ist
-    if (sortDirection) {
-      query = query.sort({ [sortField]: sortDirection === 'desc' ? -1 : 1 });
-    }
-
-    // Führe die Query aus und speichere das Ergebnis
-    filteredUsers = await query.exec();
-
-    // Zähle die Anzahl der gefilterten Benutzer
-    totalLength = await Users.countDocuments({
-      $or: [
-        { firstName: { $regex: filter, $options: 'i' } },
-        { lastName: { $regex: filter, $options: 'i' } },
-        { email: { $regex: filter, $options: 'i' } }
-      ]
-    });
+    const totalLength = await Users.countDocuments({ $or });
+    res.send({ users: filteredUsers, totalLength });
+    return;
   } catch (error) {
     console.error(error);
-    res.status(500).send({ error: 'Fehler beim Abrufen der Benutzer' });
+    res.status(500).send({ error: 'Error while user fetching' });
     return;
   }
-
-  // Ergebnis senden
-  res.send({ users: filteredUsers, totalLength });
 });
 
 // Route: GET /api/users/:id
 router.get('/users/:id', async (req, res) => {
-  let id = req.params.id;
-  let user = await Users.findById({ _id: `${id}` }).exec();
+  let user = await Users.findById(req.params.id);
   if (user) {
     res.send(user);
     return;
   }
-  res.sendStatus(400);
+  res.status(404).send({ error: 'Error user not found' });
 });
 
 // Route: POST /api/users
 router.post('/users', async (req, res) => {
   const user = new Users(req.body);
-
   try {
     const newUser = await user.save();
     res.send({ status: 'OK', profilPicSrc: newUser.profilPicSrc, _id: newUser._id });
+    return;
   } catch (error) {
-    res.send({ status: 'Error' });
     console.log(error);
+    res.send({ status: 'Error' });
+    return;
   }
 });
 
@@ -96,36 +76,27 @@ router.post('/users', async (req, res) => {
 router.delete('/users/:id', async (req, res) => {
   const userId = req.params.id;
   try {
-    const user = await Users.findOneAndDelete({ _id: `${userId}` });
+    await Users.findOneAndDelete({ _id: `${userId}` });
     res.send({ status: 'OK' });
+    return;
   } catch (error) {
-    console.error('Error fetching user:', error);
+    console.error('Error deleting user:', error);
     res.send({ status: 'Error' });
+    return;
   }
 });
 
 // Route: PUT /api/users
 router.put('/users', async (req, res) => {
   const editedUser = req.body;
-  const userId = editedUser._id;
-  const filter = { _id: `${userId}` };
-  const update = {
-    firstName: editedUser.firstName,
-    lastName: editedUser.lastName,
-    email: editedUser.email,
-    birthDate: editedUser.birthDate,
-    city: editedUser.city,
-    street: editedUser.street,
-    houseNumber: editedUser.houseNumber,
-    postalCode: editedUser.postalCode,
-    profilPicSrc: editedUser.profilePicSrc
-  };
   try {
-    await Users.findOneAndUpdate(filter, update);
+    await Users.findOneAndUpdate({ _id: `${editedUser._id}` }, editedUser);
     res.send({ status: 'OK' });
+    return;
   } catch (error) {
     console.error('Error updating user:', error);
     res.send({ status: 'Error' });
+    return;
   }
 });
 
