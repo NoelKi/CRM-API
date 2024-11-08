@@ -87,9 +87,12 @@ router.get('/users/:id', async (req, res) => {
 router.post('/users', async (req, res) => {
   // req.body.id = String(thisUsers.length);
   const user = new User(req.body);
-  await Users.create(user);
-
-  res.send({ status: 'OK', profilPicSrc: user.profilPicSrc });
+  try {
+    const newUser = await Users.create(user);
+    res.send({ status: 'OK', profilPicSrc: newUser.profilPicSrc, _id: newUser._id });
+  } catch (error) {
+    res.send({ status: 'Error' });
+  }
 });
 
 // Route: DELETE /api/users/:id
