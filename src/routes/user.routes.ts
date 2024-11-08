@@ -1,26 +1,22 @@
 import { Router } from 'express';
-import { users } from '../fake-db/user.data';
 import { Users } from '../models';
 import { IUser } from '../models/schemas/user.schema';
-import { User } from '../models/user.model';
 
-let thisUsers = users;
 const router = Router();
 
 //toDo exe Anschauen
 
 // helpfunction
-router.get('/fillDb', (req, res) => {
-  console.log('trigger');
-  // try {
-  //   const usersWithoutId = users.map(({ id, ...user }) => user);
-  //   await Promise.all(usersWithoutId.map((user) => Users.create(user)));
-  //   res.status(200).send({ message: 'Datenbank erfolgreich befüllt' });
-  // } catch (error) {
-  //   console.error('Fehler beim Befüllen der Datenbank:', error);
-  //   res.status(500).send({ message: 'Fehler beim Befüllen der Datenbank', error });
-  // }
-});
+// router.get('/fillDb', (req, res) => {
+// try {
+//   const usersWithoutId = users.map(({ id, ...user }) => user);
+//   await Promise.all(usersWithoutId.map((user) => Users.create(user)));
+//   res.status(200).send({ message: 'Datenbank erfolgreich befüllt' });
+// } catch (error) {
+//   console.error('Fehler beim Befüllen der Datenbank:', error);
+//   res.status(500).send({ message: 'Fehler beim Befüllen der Datenbank', error });
+// }
+// });
 
 // Route: GET /api/users
 router.get('/users', async (req, res) => {
@@ -85,13 +81,14 @@ router.get('/users/:id', async (req, res) => {
 
 // Route: POST /api/users
 router.post('/users', async (req, res) => {
-  // req.body.id = String(thisUsers.length);
-  const user = new User(req.body);
+  const user = new Users(req.body);
+
   try {
-    const newUser = await Users.create(user);
+    const newUser = await user.save();
     res.send({ status: 'OK', profilPicSrc: newUser.profilPicSrc, _id: newUser._id });
   } catch (error) {
     res.send({ status: 'Error' });
+    console.log(error);
   }
 });
 
