@@ -2,9 +2,9 @@ import { Router } from 'express';
 import fileUpload, { UploadedFile } from 'express-fileupload';
 import fs from 'fs';
 import path from 'path';
-import { users } from '../fake-db/user.data';
+import { Users } from '../models';
 
-let thisUsers = users;
+// let thisUsers = users;
 const assetsRouter = Router();
 
 // Rootpath for images
@@ -46,37 +46,28 @@ assetsRouter.put('/assets/img/logos', (req, res) => {
   }
 
   // Save file
-  file.mv(filePath, (err) => {
+  file.mv(filePath, async (err) => {
     if (err) {
       console.error('Error saving file:', err);
       return res.status(500).send('Error saving file.');
     }
 
-    // Update userlist
-    let isEdit = false;
-    let profilPicSrc = '';
-    thisUsers = thisUsers.map((user) => {
-      if (user.id === userId) {
-        isEdit = true;
-        user.profilPicSrc = `/api/assets/img/logos/${userId}/${file.name}`;
-        profilPicSrc = user.profilPicSrc;
-        console.log('uploaded File ' + isEdit);
-      }
-      return user;
-    });
+    let profilPicSrc = `/api/assets/img/logos/${userId}/${file.name}`;
 
-    if (!isEdit) {
-      res.send({
-        status: 'Error',
-        message: 'No user found for upload.'
-      });
-      return;
-    }
-
-    res.send({
-      status: 'OK',
+    const filter = { _id: `${userId}` };
+    const update = {
       profilPicSrc: profilPicSrc
-    });
+    };
+
+    try {
+      await Users.findOneAndUpdate(filter, update);
+      res.send({
+        status: 'OK',
+        profilPicSrc: profilPicSrc
+      });
+    } catch (error) {
+      return res.send({ status: 'error' });
+    }
   });
 });
 
