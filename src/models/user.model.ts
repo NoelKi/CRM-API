@@ -8,7 +8,7 @@ export class User {
   city: string;
   postalCode: string;
   email: string;
-  profilPicSrc: string;
+  profilPicSrc: undefined;
 
   constructor(obj?: User) {
     this.id = obj?.id || '';
@@ -20,10 +20,5 @@ export class User {
     this.postalCode = obj ? obj.postalCode : '';
     this.email = obj ? obj.email : '';
     this.houseNumber = obj ? obj.houseNumber : '';
-    if (obj && obj.profilPicSrc !== '') {
-      this.profilPicSrc = obj.profilPicSrc;
-    } else {
-      this.profilPicSrc = './api/assets/img/logos/profilPicDefault.jpg';
-    }
   }
 }

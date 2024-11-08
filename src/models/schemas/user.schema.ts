@@ -11,7 +11,7 @@ export const userSchema = new Schema({
   city: { type: String },
   postalCode: { type: String },
   email: { type: String },
-  profilPicSrc: { type: String }
+  profilPicSrc: { type: String, default: './api/assets/img/logos/default/profilPicDefault.jpg' }
 });
 
 export interface IUser {
