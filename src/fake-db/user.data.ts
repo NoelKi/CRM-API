@@ -1,8 +1,7 @@
-import { User } from '../models/user.model';
+import { Users } from '../models';
 
-export const users: User[] = [
-  new User({
-    id: '0',
+export const users = [
+  new Users({
     firstName: 'Kieran',
     lastName: 'Mai',
     birthDate: new Date('2024-10-16T22:00:00.000Z'),
@@ -10,11 +9,9 @@ export const users: User[] = [
     houseNumber: '27',
     city: 'Berlin',
     postalCode: '12161',
-    email: 'kieran.noel@icloud.com',
-    profilPicSrc: './api/assets/img/logos/0/file.png'
+    email: 'kieran.noel@icloud.com'
   }),
-  new User({
-    id: '1',
+  new Users({
     firstName: 'Amadeus',
     lastName: 'Scherkenbach',
     birthDate: new Date('2024-10-16T22:00:00.000Z'),
@@ -22,11 +19,9 @@ export const users: User[] = [
     houseNumber: '43',
     city: 'Berlin',
     postalCode: '12207',
-    email: 'amadeus@sorglosinterent.de',
-    profilPicSrc: './api/assets/img/logos/1/file.png'
+    email: 'amadeus@sorglosinterent.de'
   }),
-  new User({
-    id: '2',
+  new Users({
     firstName: 'Emma',
     lastName: 'Schmidt',
     birthDate: new Date('1990-05-14T22:00:00.000Z'),
@@ -34,11 +29,9 @@ export const users: User[] = [
     houseNumber: '17',
     city: 'Hamburg',
     postalCode: '22081',
-    email: 'emma.schmidt@example.com',
-    profilPicSrc: './api/assets/img/logos/2/file.png'
+    email: 'emma.schmidt@example.com'
   }),
-  new User({
-    id: '3',
+  new Users({
     firstName: 'Lukas',
     lastName: 'Fischer',
     birthDate: new Date('1988-08-21T22:00:00.000Z'),
@@ -46,11 +39,9 @@ export const users: User[] = [
     houseNumber: '9',
     city: 'Munich',
     postalCode: '80331',
-    email: 'lukas.fischer@example.com',
-    profilPicSrc: './api/assets/img/logos/3/file.png'
+    email: 'lukas.fischer@example.com'
   }),
-  new User({
-    id: '4',
+  new Users({
     firstName: 'Sophie',
     lastName: 'Weber',
     birthDate: new Date('1992-03-10T22:00:00.000Z'),
@@ -58,11 +49,9 @@ export const users: User[] = [
     houseNumber: '42',
     city: 'Frankfurt',
     postalCode: '60313',
-    email: 'sophie.weber@example.com',
-    profilPicSrc: './api/assets/img/logos/4/file.png'
+    email: 'sophie.weber@example.com'
   }),
-  new User({
-    id: '5',
+  new Users({
     firstName: 'Max',
     lastName: 'Müller',
     birthDate: new Date('1985-12-01T22:00:00.000Z'),
@@ -70,11 +59,9 @@ export const users: User[] = [
     houseNumber: '58',
     city: 'Cologne',
     postalCode: '50667',
-    email: 'max.mueller@example.com',
-    profilPicSrc: './api/assets/img/logos/5/file.png'
+    email: 'max.mueller@example.com'
   }),
-  new User({
-    id: '6',
+  new Users({
     firstName: 'Leonie',
     lastName: 'Keller',
     birthDate: new Date('1996-07-23T22:00:00.000Z'),
@@ -82,11 +69,9 @@ export const users: User[] = [
     houseNumber: '5',
     city: 'Stuttgart',
     postalCode: '70178',
-    email: 'leonie.keller@example.com',
-    profilPicSrc: './api/assets/img/logos/6/file.png'
+    email: 'leonie.keller@example.com'
   }),
-  new User({
-    id: '7',
+  new Users({
     firstName: 'Tim',
     lastName: 'Brandt',
     birthDate: new Date('1999-09-17T22:00:00.000Z'),
@@ -94,11 +79,9 @@ export const users: User[] = [
     houseNumber: '12',
     city: 'Düsseldorf',
     postalCode: '40210',
-    email: 'tim.brandt@example.com',
-    profilPicSrc: './api/assets/img/logos/7/file.png'
+    email: 'tim.brandt@example.com'
   }),
-  new User({
-    id: '8',
+  new Users({
     firstName: 'Maya',
     lastName: 'Schneider',
     birthDate: new Date('1991-11-29T22:00:00.000Z'),
@@ -106,11 +89,9 @@ export const users: User[] = [
     houseNumber: '23',
     city: 'Bremen',
     postalCode: '28195',
-    email: 'maya.schneider@example.com',
-    profilPicSrc: './api/assets/img/logos/8/file.png'
+    email: 'maya.schneider@example.com'
   }),
-  new User({
-    id: '9',
+  new Users({
     firstName: 'Finn',
     lastName: 'Neumann',
     birthDate: new Date('1994-06-18T22:00:00.000Z'),
@@ -118,11 +99,9 @@ export const users: User[] = [
     houseNumber: '30',
     city: 'Hanover',
     postalCode: '30159',
-    email: 'finn.neumann@example.com',
-    profilPicSrc: './api/assets/img/logos/9/file.png'
+    email: 'finn.neumann@example.com'
   }),
-  new User({
-    id: '10',
+  new Users({
     firstName: 'Beatrix',
     lastName: 'Hoffmann',
     birthDate: new Date('1990-05-12T22:00:00.000Z'),
@@ -130,11 +109,9 @@ export const users: User[] = [
     houseNumber: '12',
     city: 'Hamburg',
     postalCode: '20095',
-    email: 'beatrix.hoffmann@example.com',
-    profilPicSrc: './assets/img/logos/10/file1.png'
+    email: 'beatrix.hoffmann@example.com'
   }),
-  new User({
-    id: '11',
+  new Users({
     firstName: 'Clara',
     lastName: 'Müller',
     birthDate: new Date('1985-03-03T22:00:00.000Z'),
@@ -142,11 +119,9 @@ export const users: User[] = [
     houseNumber: '9',
     city: 'München',
     postalCode: '80331',
-    email: 'clara.mueller@example.com',
-    profilPicSrc: './assets/img/logos/11/file2.png'
+    email: 'clara.mueller@example.com'
   }),
-  new User({
-    id: '12',
+  new Users({
     firstName: 'David',
     lastName: 'Schmidt',
     birthDate: new Date('1978-08-14T22:00:00.000Z'),
@@ -154,11 +129,9 @@ export const users: User[] = [
     houseNumber: '25',
     city: 'Frankfurt',
     postalCode: '60313',
-    email: 'david.schmidt@example.com',
-    profilPicSrc: './api/assets/img/logos/12/file.png'
+    email: 'david.schmidt@example.com'
   }),
-  new User({
-    id: '13',
+  new Users({
     firstName: 'Emma',
     lastName: 'Weber',
     birthDate: new Date('1995-01-23T22:00:00.000Z'),
@@ -166,11 +139,9 @@ export const users: User[] = [
     houseNumber: '7',
     city: 'Berlin',
     postalCode: '10115',
-    email: 'emma.weber@example.com',
-    profilPicSrc: './api/assets/img/logos/13/file.png'
+    email: 'emma.weber@example.com'
   }),
-  new User({
-    id: '14',
+  new Users({
     firstName: 'Felix',
     lastName: 'Fischer',
     birthDate: new Date('1988-06-30T22:00:00.000Z'),
@@ -178,11 +149,9 @@ export const users: User[] = [
     houseNumber: '10',
     city: 'Stuttgart',
     postalCode: '70173',
-    email: 'felix.fischer@example.com',
-    profilPicSrc: './api/assets/img/logos/14/file.png'
+    email: 'felix.fischer@example.com'
   }),
-  new User({
-    id: '15',
+  new Users({
     firstName: 'Greta',
     lastName: 'Krüger',
     birthDate: new Date('1992-11-11T22:00:00.000Z'),
@@ -190,11 +159,9 @@ export const users: User[] = [
     houseNumber: '4',
     city: 'Düsseldorf',
     postalCode: '40213',
-    email: 'greta.krueger@example.com',
-    profilPicSrc: './api/assets/img/logos/15/file.png'
+    email: 'greta.krueger@example.com'
   }),
-  new User({
-    id: '16',
+  new Users({
     firstName: 'Hans',
     lastName: 'Wagner',
     birthDate: new Date('1982-12-25T22:00:00.000Z'),
@@ -202,11 +169,9 @@ export const users: User[] = [
     houseNumber: '17',
     city: 'Köln',
     postalCode: '50667',
-    email: 'hans.wagner@example.com',
-    profilPicSrc: './assets/img/logos/16/file.png'
+    email: 'hans.wagner@example.com'
   }),
-  new User({
-    id: '17',
+  new Users({
     firstName: 'Isabel',
     lastName: 'Schneider',
     birthDate: new Date('2001-07-14T22:00:00.000Z'),
@@ -214,11 +179,9 @@ export const users: User[] = [
     houseNumber: '21',
     city: 'Dresden',
     postalCode: '01067',
-    email: 'isabel.schneider@example.com',
-    profilPicSrc: './api/assets/img/logos/17/file.png'
+    email: 'isabel.schneider@example.com'
   }),
-  new User({
-    id: '18',
+  new Users({
     firstName: 'Jonas',
     lastName: 'Becker',
     birthDate: new Date('1984-02-18T22:00:00.000Z'),
@@ -226,11 +189,9 @@ export const users: User[] = [
     houseNumber: '11',
     city: 'Hannover',
     postalCode: '30159',
-    email: 'jonas.becker@example.com',
-    profilPicSrc: './api/assets/img/logos/18/file.png'
+    email: 'jonas.becker@example.com'
   }),
-  new User({
-    id: '19',
+  new Users({
     firstName: 'Klara',
     lastName: 'Seidel',
     birthDate: new Date('1997-09-09T22:00:00.000Z'),
@@ -238,7 +199,6 @@ export const users: User[] = [
     houseNumber: '6',
     city: 'Leipzig',
     postalCode: '04109',
-    email: 'klara.seidel@example.com',
-    profilPicSrc: './api/assets/img/logos/19/file.png'
+    email: 'klara.seidel@example.com'
   })
 ];

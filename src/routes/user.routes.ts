@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { users } from '../fake-db/user.data';
 import { Users } from '../models';
 
 const router = Router();
@@ -6,16 +7,15 @@ const router = Router();
 //toDo exe Anschauen
 
 // helpfunction
-// router.get('/fillDb', (req, res) => {
-// try {
-//   const usersWithoutId = users.map(({ id, ...user }) => user);
-//   await Promise.all(usersWithoutId.map((user) => Users.create(user)));
-//   res.status(200).send({ message: 'Datenbank erfolgreich befüllt' });
-// } catch (error) {
-//   console.error('Fehler beim Befüllen der Datenbank:', error);
-//   res.status(500).send({ message: 'Fehler beim Befüllen der Datenbank', error });
-// }
-// });
+router.get('/fillDb', async (req, res) => {
+  try {
+    await Users.insertMany(users);
+    res.status(200).send({ message: 'Datenbank erfolgreich befüllt' });
+  } catch (error) {
+    console.error('Fehler beim Befüllen der Datenbank:', error);
+    res.status(500).send({ message: 'Fehler beim Befüllen der Datenbank', error });
+  }
+});
 
 // Route: GET /api/users
 router.get('/users', async (req, res) => {
