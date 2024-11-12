@@ -19,26 +19,29 @@ router.get('/fillDb', async (req, res) => {
 
 // Route: GET /api/users
 router.get('/users', async (req, res) => {
-  const filter = (req.query.filter as string) || '';
+  let filter = (req.query.filter as string) || '';
   const pageSize = Number(req.query.pageSize) || 5;
   const pageIndex = Number(req.query.pageIndex) || 0;
   const sortField = (req.query.sortField as string) || '_id';
   const sortDirection = (req.query.sortDirection as 'asc' | 'desc') || 'desc';
-  const $or = [
-    { firstName: { $regex: filter, $options: 'i' } },
-    { lastName: { $regex: filter, $options: 'i' } },
-    { email: { $regex: filter, $options: 'i' } },
-    { street: { $regex: filter, $options: 'i' } }
-  ];
+  const filterArr = splitFilter(filter);
+  const $and = filterArr.map((word) => ({
+    $or: [
+      { firstName: { $regex: word, $options: 'i' } },
+      { lastName: { $regex: word, $options: 'i' } },
+      { email: { $regex: word, $options: 'i' } },
+      { street: { $regex: word, $options: 'i' } }
+    ]
+  }));
 
   try {
     // Baue die Query auf
-    const filteredUsers = await Users.find({ $or })
+    const filteredUsers = await Users.find({ $and })
       .limit(pageSize)
       .skip(pageSize * pageIndex)
       .sort({ [sortField]: sortDirection });
 
-    const totalLength = await Users.countDocuments({ $or });
+    const totalLength = await Users.countDocuments({ $and });
     res.send({ users: filteredUsers, totalLength });
     return;
   } catch (error) {
@@ -47,6 +50,10 @@ router.get('/users', async (req, res) => {
     return;
   }
 });
+
+function splitFilter(filterValue: string) {
+  return filterValue.split(' ');
+}
 
 // Route: GET /api/users/:id
 router.get('/users/:id', async (req, res) => {
