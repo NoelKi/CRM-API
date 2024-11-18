@@ -4,8 +4,6 @@ import { Users } from '../models';
 
 const router = Router();
 
-//toDo exe Anschauen
-
 // helpfunction
 router.get('/fillDb', async (req, res) => {
   try {
