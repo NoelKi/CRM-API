@@ -2,9 +2,8 @@ import { Router } from 'express';
 import fileUpload, { UploadedFile } from 'express-fileupload';
 import fs from 'fs';
 import path from 'path';
-import { Users } from '../models';
+import { Customers } from '../models';
 
-// let thisUsers = users;
 const assetsRouter = Router();
 
 // Rootpath for images
@@ -15,7 +14,7 @@ assetsRouter.use(fileUpload());
 
 // Route: PUT /api/assets/img/logos
 assetsRouter.put('/assets/img/logos', (req, res) => {
-  const userId = req.body.id;
+  const customerId = req.body.id;
   const file = req.files?.file as UploadedFile;
 
   // Check whether a file has been uploaded
@@ -27,17 +26,17 @@ assetsRouter.put('/assets/img/logos', (req, res) => {
     return;
   }
 
-  // Validation of userId and filename
-  if (!userId || typeof userId !== 'string') {
+  // Validation of customerId and filename
+  if (!customerId || typeof customerId !== 'string') {
     res.send({
       status: 'Error',
-      message: 'Invalid user ID.'
+      message: 'Invalid customer ID.'
     });
     return;
   }
 
   // Path for saving the file
-  const imagePath = path.join(__dirname, 'assets', 'img', 'logos', userId);
+  const imagePath = path.join(__dirname, 'assets', 'img', 'logos', customerId);
   const filePath = path.join(imagePath, file.name);
 
   // Create directory if it does not exist
@@ -52,15 +51,15 @@ assetsRouter.put('/assets/img/logos', (req, res) => {
       return res.status(500).send('Error saving file.');
     }
 
-    let profilPicSrc = `/api/assets/img/logos/${userId}/${file.name}`;
+    let profilPicSrc = `/api/assets/img/logos/${customerId}/${file.name}`;
 
-    const filter = { _id: `${userId}` };
+    const filter = { _id: `${customerId}` };
     const update = {
       profilPicSrc: profilPicSrc
     };
 
     try {
-      await Users.findOneAndUpdate(filter, update);
+      await Customers.findOneAndUpdate(filter, update);
       res.send({
         status: 'OK',
         profilPicSrc: profilPicSrc
@@ -71,10 +70,10 @@ assetsRouter.put('/assets/img/logos', (req, res) => {
   });
 });
 
-// Route: GET /api/assets/img/logos/:userId/:filename
-assetsRouter.get('/assets/img/logos/:userId/:filename', (req, res) => {
-  const { userId, filename } = req.params;
-  const filePath = path.join(ROOT_PATH, userId, filename);
+// Route: GET /api/assets/img/logos/:customerId/:filename
+assetsRouter.get('/assets/img/logos/:customerId/:filename', (req, res) => {
+  const { customerId, filename } = req.params;
+  const filePath = path.join(ROOT_PATH, customerId, filename);
   if (fs.existsSync(filePath)) {
     res.sendFile(filePath, (err) => {
       if (err) {

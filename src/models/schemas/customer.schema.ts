@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-export const userSchema = new Schema({
+export const customerSchema = new Schema({
   firstName: { type: String },
   lastName: { type: String },
   birthDate: { type: Date },
@@ -13,7 +13,7 @@ export const userSchema = new Schema({
   profilPicSrc: { type: String, default: './api/assets/img/logos/default/profilPicDefault.jpg' }
 });
 
-export interface IUser {
+export interface ICustomer {
   _id: string;
   firstName: string;
   lastName: string;

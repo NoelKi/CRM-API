@@ -1,7 +1,7 @@
-import { Users } from '../models';
+import { Customers } from '../models';
 
-export const users = [
-  new Users({
+export const customers = [
+  new Customers({
     firstName: 'Kieran',
     lastName: 'Mai',
     birthDate: new Date('2024-10-16T22:00:00.000Z'),
@@ -12,7 +12,7 @@ export const users = [
     email: 'kieran.noel@icloud.com',
     password: 'test123'
   }),
-  new Users({
+  new Customers({
     firstName: 'Amadeus',
     lastName: 'Scherkenbach',
     birthDate: new Date('2024-10-16T22:00:00.000Z'),
@@ -23,7 +23,7 @@ export const users = [
     email: 'amadeus@sorglosinterent.de',
     password: 'test123'
   }),
-  new Users({
+  new Customers({
     firstName: 'Emma',
     lastName: 'Schmidt',
     birthDate: new Date('1990-05-14T22:00:00.000Z'),
@@ -34,7 +34,7 @@ export const users = [
     email: 'emma.schmidt@example.com',
     password: 'test123'
   }),
-  new Users({
+  new Customers({
     firstName: 'Lukas',
     lastName: 'Fischer',
     birthDate: new Date('1988-08-21T22:00:00.000Z'),
@@ -45,7 +45,7 @@ export const users = [
     email: 'lukas.fischer@example.com',
     password: 'test123'
   }),
-  new Users({
+  new Customers({
     firstName: 'Sophie',
     lastName: 'Weber',
     birthDate: new Date('1992-03-10T22:00:00.000Z'),
@@ -56,7 +56,7 @@ export const users = [
     email: 'sophie.weber@example.com',
     password: 'test123'
   }),
-  new Users({
+  new Customers({
     firstName: 'Max',
     lastName: 'Müller',
     birthDate: new Date('1985-12-01T22:00:00.000Z'),
@@ -67,7 +67,7 @@ export const users = [
     email: 'max.mueller@example.com',
     password: 'test123'
   }),
-  new Users({
+  new Customers({
     firstName: 'Leonie',
     lastName: 'Keller',
     birthDate: new Date('1996-07-23T22:00:00.000Z'),
@@ -78,7 +78,7 @@ export const users = [
     email: 'leonie.keller@example.com',
     password: 'test123'
   }),
-  new Users({
+  new Customers({
     firstName: 'Tim',
     lastName: 'Brandt',
     birthDate: new Date('1999-09-17T22:00:00.000Z'),
@@ -89,7 +89,7 @@ export const users = [
     email: 'tim.brandt@example.com',
     password: 'test123'
   }),
-  new Users({
+  new Customers({
     firstName: 'Maya',
     lastName: 'Schneider',
     birthDate: new Date('1991-11-29T22:00:00.000Z'),
@@ -100,7 +100,7 @@ export const users = [
     email: 'maya.schneider@example.com',
     password: 'test123'
   }),
-  new Users({
+  new Customers({
     firstName: 'Finn',
     lastName: 'Neumann',
     birthDate: new Date('1994-06-18T22:00:00.000Z'),
@@ -111,7 +111,7 @@ export const users = [
     email: 'finn.neumann@example.com',
     password: 'test123'
   }),
-  new Users({
+  new Customers({
     firstName: 'Beatrix',
     lastName: 'Hoffmann',
     birthDate: new Date('1990-05-12T22:00:00.000Z'),
@@ -122,7 +122,7 @@ export const users = [
     email: 'beatrix.hoffmann@example.com',
     password: 'test123'
   }),
-  new Users({
+  new Customers({
     firstName: 'Clara',
     lastName: 'Müller',
     birthDate: new Date('1985-03-03T22:00:00.000Z'),
@@ -133,7 +133,7 @@ export const users = [
     email: 'clara.mueller@example.com',
     password: 'test123'
   }),
-  new Users({
+  new Customers({
     firstName: 'David',
     lastName: 'Schmidt',
     birthDate: new Date('1978-08-14T22:00:00.000Z'),
@@ -144,7 +144,7 @@ export const users = [
     email: 'david.schmidt@example.com',
     password: 'test123'
   }),
-  new Users({
+  new Customers({
     firstName: 'Emma',
     lastName: 'Weber',
     birthDate: new Date('1995-01-23T22:00:00.000Z'),
@@ -155,7 +155,7 @@ export const users = [
     email: 'emma.weber@example.com',
     password: 'test123'
   }),
-  new Users({
+  new Customers({
     firstName: 'Felix',
     lastName: 'Fischer',
     birthDate: new Date('1988-06-30T22:00:00.000Z'),
@@ -166,7 +166,7 @@ export const users = [
     email: 'felix.fischer@example.com',
     password: 'test123'
   }),
-  new Users({
+  new Customers({
     firstName: 'Greta',
     lastName: 'Krüger',
     birthDate: new Date('1992-11-11T22:00:00.000Z'),
@@ -177,7 +177,7 @@ export const users = [
     email: 'greta.krueger@example.com',
     password: 'test123'
   }),
-  new Users({
+  new Customers({
     firstName: 'Hans',
     lastName: 'Wagner',
     birthDate: new Date('1982-12-25T22:00:00.000Z'),
@@ -188,7 +188,7 @@ export const users = [
     email: 'hans.wagner@example.com',
     password: 'test123'
   }),
-  new Users({
+  new Customers({
     firstName: 'Isabel',
     lastName: 'Schneider',
     birthDate: new Date('2001-07-14T22:00:00.000Z'),
@@ -199,7 +199,7 @@ export const users = [
     email: 'isabel.schneider@example.com',
     password: 'test123'
   }),
-  new Users({
+  new Customers({
     firstName: 'Jonas',
     lastName: 'Becker',
     birthDate: new Date('1984-02-18T22:00:00.000Z'),
@@ -210,7 +210,7 @@ export const users = [
     email: 'jonas.becker@example.com',
     password: 'test123'
   }),
-  new Users({
+  new Customers({
     firstName: 'Klara',
     lastName: 'Seidel',
     birthDate: new Date('1997-09-09T22:00:00.000Z'),

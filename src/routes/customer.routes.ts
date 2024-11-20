@@ -1,13 +1,13 @@
 import { Router } from 'express';
-import { users } from '../fake-db/user.data';
-import { Users } from '../models';
+import { customers } from '../fake-db/customer.data';
+import { Customers } from '../models';
 
 const router = Router();
 
 // helpfunction
 router.get('/fillDb', async (req, res) => {
   try {
-    await Users.insertMany(users);
+    await Customers.insertMany(customers);
     res.status(200).send({ message: 'Datenbank erfolgreich befüllt' });
   } catch (error) {
     console.error('Fehler beim Befüllen der Datenbank:', error);
@@ -15,8 +15,8 @@ router.get('/fillDb', async (req, res) => {
   }
 });
 
-// Route: GET /api/users
-router.get('/users', async (req, res) => {
+// Route: GET /api/customers
+router.get('/customers', async (req, res) => {
   let filter = (req.query.filter as string) || '';
   const pageSize = Number(req.query.pageSize) || 5;
   const pageIndex = Number(req.query.pageIndex) || 0;
@@ -34,17 +34,17 @@ router.get('/users', async (req, res) => {
 
   try {
     // Baue die Query auf
-    const filteredUsers = await Users.find({ $and })
+    const filteredCustomers = await Customers.find({ $and })
       .limit(pageSize)
       .skip(pageSize * pageIndex)
       .sort({ [sortField]: sortDirection });
 
-    const totalLength = await Users.countDocuments({ $and });
-    res.send({ users: filteredUsers, totalLength });
+    const totalLength = await Customers.countDocuments({ $and });
+    res.send({ customers: filteredCustomers, totalLength });
     return;
   } catch (error) {
     console.error(error);
-    res.status(500).send({ error: 'Error while user fetching' });
+    res.status(500).send({ error: 'Error while customer fetching' });
     return;
   }
 });
@@ -53,22 +53,22 @@ function splitFilter(filterValue: string) {
   return filterValue.split(' ');
 }
 
-// Route: GET /api/users/:id
-router.get('/users/:id', async (req, res) => {
-  let user = await Users.findById(req.params.id);
-  if (user) {
-    res.send(user);
+// Route: GET /api/customers/:id
+router.get('/customers/:id', async (req, res) => {
+  let customer = await Customers.findById(req.params.id);
+  if (customer) {
+    res.send(customer);
     return;
   }
-  res.status(404).send({ error: 'Error user not found' });
+  res.status(404).send({ error: 'Error customer not found' });
 });
 
-// Route: POST /api/users
-router.post('/users', async (req, res) => {
-  const user = new Users(req.body);
+// Route: POST /api/customers
+router.post('/customers', async (req, res) => {
+  const customer = new Customers(req.body);
   try {
-    const newUser = await user.save();
-    res.send({ status: 'OK', profilPicSrc: newUser.profilPicSrc, _id: newUser._id });
+    const newCustomer = await customer.save();
+    res.send({ status: 'OK', profilPicSrc: newCustomer.profilPicSrc, _id: newCustomer._id });
     return;
   } catch (error) {
     console.log(error);
@@ -77,29 +77,29 @@ router.post('/users', async (req, res) => {
   }
 });
 
-// Route: DELETE /api/users/:id
-router.delete('/users/:id', async (req, res) => {
-  const userId = req.params.id;
+// Route: DELETE /api/customers/:id
+router.delete('/customers/:id', async (req, res) => {
+  const customerId = req.params.id;
   try {
-    await Users.findOneAndDelete({ _id: `${userId}` });
+    await Customers.findOneAndDelete({ _id: `${customerId}` });
     res.send({ status: 'OK' });
     return;
   } catch (error) {
-    console.error('Error deleting user:', error);
+    console.error('Error deleting customer:', error);
     res.send({ status: 'Error' });
     return;
   }
 });
 
-// Route: PUT /api/users
-router.put('/users', async (req, res) => {
-  const editedUser = req.body;
+// Route: PUT /api/customers
+router.put('/customers', async (req, res) => {
+  const editedCustomer = req.body;
   try {
-    await Users.findOneAndUpdate({ _id: `${editedUser._id}` }, editedUser);
+    await Customers.findOneAndUpdate({ _id: `${editedCustomer._id}` }, editedCustomer);
     res.send({ status: 'OK' });
     return;
   } catch (error) {
-    console.error('Error updating user:', error);
+    console.error('Error updating customer:', error);
     res.send({ status: 'Error' });
     return;
   }
@@ -107,10 +107,10 @@ router.put('/users', async (req, res) => {
 
 // Route: Post /api/login
 router.post('/login', async (req, res) => {
-  const userLogin = new Users(req.body);
+  const userLogin = new Customers(req.body);
   try {
-    const user = await Users.findOne({ email: userLogin.email, password: userLogin.password });
-    res.send({ user });
+    const user = await Customers.findOne({ email: userLogin.email, password: userLogin.password });
+    res.send(user);
   } catch (error) {
     console.log('Not Worked In');
 

@@ -12,8 +12,8 @@ app.use(express.json());
 // Setzen Sie die Portnummer für den Server
 const port = environment.port;
 
-// Binden Sie den userRouter unter dem Pfad '/api' ein
-app.use('/api', myRoutes.userRouter);
+// Binden Sie den customerRouter unter dem Pfad '/api' ein
+app.use('/api', myRoutes.customerRouter);
 app.use('/api', myRoutes.assetsRouter);
 
 // Starten Sie den Server und hören Sie auf den angegebenen Port

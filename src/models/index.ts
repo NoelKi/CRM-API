@@ -1,4 +1,4 @@
 import { model } from 'mongoose';
-import { IUser, userSchema } from './schemas/user.schema';
+import { customerSchema, ICustomer } from './schemas/customer.schema';
 
-export const Users = model<IUser>('users', userSchema);
+export const Customers = model<ICustomer>('customers', customerSchema);
