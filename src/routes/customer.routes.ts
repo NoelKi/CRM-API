@@ -4,8 +4,8 @@ import { Customers } from '../models';
 
 const router = Router();
 
-// helpfunction
-router.get('/fillDb', async (req, res) => {
+// helpfunctions --------
+router.get('/fillCustomers', async (req, res) => {
   try {
     await Customers.insertMany(customers);
     res.status(200).send({ message: 'Datenbank erfolgreich befüllt' });
@@ -14,6 +14,17 @@ router.get('/fillDb', async (req, res) => {
     res.status(500).send({ message: 'Fehler beim Befüllen der Datenbank', error });
   }
 });
+
+router.get('/fillUsers', async (req, res) => {
+  try {
+    await Customers.insertMany(customers);
+    res.status(200).send({ message: 'Datenbank erfolgreich befüllt' });
+  } catch (error) {
+    console.error('Fehler beim Befüllen der Datenbank:', error);
+    res.status(500).send({ message: 'Fehler beim Befüllen der Datenbank', error });
+  }
+});
+// helpfunctions ----------
 
 // Route: GET /api/customers
 router.get('/customers', async (req, res) => {

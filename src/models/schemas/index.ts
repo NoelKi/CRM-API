@@ -1,5 +1,7 @@
-import { customerSchema } from './cutomer.schema';
+import { customerSchema } from './customer.schema';
+import { userSchema } from './user.schema';
 
 export const schemas = {
-  customer: customerSchema
+  customer: customerSchema,
+  user: userSchema
 };

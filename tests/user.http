@@ -2,7 +2,11 @@ GET http://localhost:3000/api/customers
 
 ### 
 
-GET http://localhost:3000/api/fillDb
+GET http://localhost:3000/api/fillCustomers
+
+###
+
+GET http://localhost:3000/api/fillUsers
 
 ###
 
