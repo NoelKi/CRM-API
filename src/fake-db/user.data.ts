@@ -9,7 +9,8 @@ export const users = [
     houseNumber: '27',
     city: 'Berlin',
     postalCode: '12161',
-    email: 'kieran.noel@icloud.com'
+    email: 'kieran.noel@icloud.com',
+    password: 'test123'
   }),
   new Users({
     firstName: 'Amadeus',
@@ -19,7 +20,8 @@ export const users = [
     houseNumber: '43',
     city: 'Berlin',
     postalCode: '12207',
-    email: 'amadeus@sorglosinterent.de'
+    email: 'amadeus@sorglosinterent.de',
+    password: 'test123'
   }),
   new Users({
     firstName: 'Emma',
@@ -29,7 +31,8 @@ export const users = [
     houseNumber: '17',
     city: 'Hamburg',
     postalCode: '22081',
-    email: 'emma.schmidt@example.com'
+    email: 'emma.schmidt@example.com',
+    password: 'test123'
   }),
   new Users({
     firstName: 'Lukas',
@@ -39,7 +42,8 @@ export const users = [
     houseNumber: '9',
     city: 'Munich',
     postalCode: '80331',
-    email: 'lukas.fischer@example.com'
+    email: 'lukas.fischer@example.com',
+    password: 'test123'
   }),
   new Users({
     firstName: 'Sophie',
@@ -49,7 +53,8 @@ export const users = [
     houseNumber: '42',
     city: 'Frankfurt',
     postalCode: '60313',
-    email: 'sophie.weber@example.com'
+    email: 'sophie.weber@example.com',
+    password: 'test123'
   }),
   new Users({
     firstName: 'Max',
@@ -59,7 +64,8 @@ export const users = [
     houseNumber: '58',
     city: 'Cologne',
     postalCode: '50667',
-    email: 'max.mueller@example.com'
+    email: 'max.mueller@example.com',
+    password: 'test123'
   }),
   new Users({
     firstName: 'Leonie',
@@ -69,7 +75,8 @@ export const users = [
     houseNumber: '5',
     city: 'Stuttgart',
     postalCode: '70178',
-    email: 'leonie.keller@example.com'
+    email: 'leonie.keller@example.com',
+    password: 'test123'
   }),
   new Users({
     firstName: 'Tim',
@@ -79,7 +86,8 @@ export const users = [
     houseNumber: '12',
     city: 'Düsseldorf',
     postalCode: '40210',
-    email: 'tim.brandt@example.com'
+    email: 'tim.brandt@example.com',
+    password: 'test123'
   }),
   new Users({
     firstName: 'Maya',
@@ -89,7 +97,8 @@ export const users = [
     houseNumber: '23',
     city: 'Bremen',
     postalCode: '28195',
-    email: 'maya.schneider@example.com'
+    email: 'maya.schneider@example.com',
+    password: 'test123'
   }),
   new Users({
     firstName: 'Finn',
@@ -99,7 +108,8 @@ export const users = [
     houseNumber: '30',
     city: 'Hanover',
     postalCode: '30159',
-    email: 'finn.neumann@example.com'
+    email: 'finn.neumann@example.com',
+    password: 'test123'
   }),
   new Users({
     firstName: 'Beatrix',
@@ -109,7 +119,8 @@ export const users = [
     houseNumber: '12',
     city: 'Hamburg',
     postalCode: '20095',
-    email: 'beatrix.hoffmann@example.com'
+    email: 'beatrix.hoffmann@example.com',
+    password: 'test123'
   }),
   new Users({
     firstName: 'Clara',
@@ -119,7 +130,8 @@ export const users = [
     houseNumber: '9',
     city: 'München',
     postalCode: '80331',
-    email: 'clara.mueller@example.com'
+    email: 'clara.mueller@example.com',
+    password: 'test123'
   }),
   new Users({
     firstName: 'David',
@@ -129,7 +141,8 @@ export const users = [
     houseNumber: '25',
     city: 'Frankfurt',
     postalCode: '60313',
-    email: 'david.schmidt@example.com'
+    email: 'david.schmidt@example.com',
+    password: 'test123'
   }),
   new Users({
     firstName: 'Emma',
@@ -139,7 +152,8 @@ export const users = [
     houseNumber: '7',
     city: 'Berlin',
     postalCode: '10115',
-    email: 'emma.weber@example.com'
+    email: 'emma.weber@example.com',
+    password: 'test123'
   }),
   new Users({
     firstName: 'Felix',
@@ -149,7 +163,8 @@ export const users = [
     houseNumber: '10',
     city: 'Stuttgart',
     postalCode: '70173',
-    email: 'felix.fischer@example.com'
+    email: 'felix.fischer@example.com',
+    password: 'test123'
   }),
   new Users({
     firstName: 'Greta',
@@ -159,7 +174,8 @@ export const users = [
     houseNumber: '4',
     city: 'Düsseldorf',
     postalCode: '40213',
-    email: 'greta.krueger@example.com'
+    email: 'greta.krueger@example.com',
+    password: 'test123'
   }),
   new Users({
     firstName: 'Hans',
@@ -169,7 +185,8 @@ export const users = [
     houseNumber: '17',
     city: 'Köln',
     postalCode: '50667',
-    email: 'hans.wagner@example.com'
+    email: 'hans.wagner@example.com',
+    password: 'test123'
   }),
   new Users({
     firstName: 'Isabel',
@@ -179,7 +196,8 @@ export const users = [
     houseNumber: '21',
     city: 'Dresden',
     postalCode: '01067',
-    email: 'isabel.schneider@example.com'
+    email: 'isabel.schneider@example.com',
+    password: 'test123'
   }),
   new Users({
     firstName: 'Jonas',
@@ -189,7 +207,8 @@ export const users = [
     houseNumber: '11',
     city: 'Hannover',
     postalCode: '30159',
-    email: 'jonas.becker@example.com'
+    email: 'jonas.becker@example.com',
+    password: 'test123'
   }),
   new Users({
     firstName: 'Klara',
@@ -199,6 +218,7 @@ export const users = [
     houseNumber: '6',
     city: 'Leipzig',
     postalCode: '04109',
-    email: 'klara.seidel@example.com'
+    email: 'klara.seidel@example.com',
+    password: 'test123'
   })
 ];
