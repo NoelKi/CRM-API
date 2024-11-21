@@ -15,6 +15,7 @@ const port = environment.port;
 // Binden Sie den customerRouter unter dem Pfad '/api' ein
 app.use('/api', myRoutes.customerRouter);
 app.use('/api', myRoutes.assetsRouter);
+app.use('/api', myRoutes.userRouter);
 
 // Starten Sie den Server und hören Sie auf den angegebenen Port
 app.listen(port, () => {
