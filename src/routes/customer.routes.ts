@@ -117,18 +117,18 @@ router.put('/customers', async (req, res) => {
 });
 
 // Route: Post /api/login
-router.post('/login', async (req, res) => {
-  const userLogin = new Customers(req.body);
-  try {
-    const user = await Customers.findOne({ email: userLogin.email, password: userLogin.password });
-    res.send(user);
-  } catch (error) {
-    console.log('Not Worked In');
+// router.post('/login', async (req, res) => {
+//   const userLogin = new Customers(req.body);
+//   try {
+//     const user = await Customers.findOne({ email: userLogin.email, password: userLogin.password });
+//     res.send(user);
+//   } catch (error) {
+//     console.log('Not Worked In');
 
-    console.log(error);
-    res.send({ status: 'Error' });
-  }
-});
+//     console.log(error);
+//     res.send({ status: 'Error' });
+//   }
+// });
 
 // Exportieren des Routers
 export default router;
