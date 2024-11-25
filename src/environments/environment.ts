@@ -9,9 +9,9 @@ function environment() {
         useNewUrlParser: true,
         useUnifiedTopology: true
       }
-    }
+    },
+    JWT_SECRET: '40db068a6f120f19061043cc8f8f03497de6625fd5433ef996baf626f188eece'
   };
-
   return local;
 }
 
