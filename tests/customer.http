@@ -1,17 +1,18 @@
 GET http://localhost:3000/api/customers
-
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJpZDEyMyIsImVtYWlsIjoia2llcmFuLm5vZWxAaWNsb3VkLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTczMjU0MDQyMH0.a2Opmz4BZEqA8_X_lg1OIlXOtoGukqe_hQ9Qnp5Srv8
 ### 
 
 GET http://localhost:3000/api/fillCustomers
-
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJpZDEyMyIsImVtYWlsIjoia2llcmFuLm5vZWxAaWNsb3VkLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTczMjU0MDQyMH0.a2Opmz4BZEqA8_X_lg1OIlXOtoGukqe_hQ9Qnp5Srv8
 ###
 
 
 GET http://localhost:3000/api/customers/1
-
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJpZDEyMyIsImVtYWlsIjoia2llcmFuLm5vZWxAaWNsb3VkLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTczMjU0MDQyMH0.a2Opmz4BZEqA8_X_lg1OIlXOtoGukqe_hQ9Qnp5Srv8
 ### 
 
 DELETE http://localhost:3000/api/customers
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJpZDEyMyIsImVtYWlsIjoia2llcmFuLm5vZWxAaWNsb3VkLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTczMjU0MDQyMH0.a2Opmz4BZEqA8_X_lg1OIlXOtoGukqe_hQ9Qnp5Srv8
 Content-Type: application/json 
 
 {  
@@ -21,7 +22,8 @@ Content-Type: application/json
 ###
 
 POST http://localhost:3000/api/customers HTTP/1.1
-content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJpZDEyMyIsImVtYWlsIjoia2llcmFuLm5vZWxAaWNsb3VkLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTczMjU0MDQyMH0.a2Opmz4BZEqA8_X_lg1OIlXOtoGukqe_hQ9Qnp5Srv8
+Content-type: application/json
 
   {
     "id": "3",
@@ -38,7 +40,8 @@ content-type: application/json
 ###
 
 PUT http://localhost:3000/api/customers HTTP/1.1
-content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJpZDEyMyIsImVtYWlsIjoia2llcmFuLm5vZWxAaWNsb3VkLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTczMjU0MDQyMH0.a2Opmz4BZEqA8_X_lg1OIlXOtoGukqe_hQ9Qnp5Srv8
+Content-type: application/json
 
   {
     "id": "0",

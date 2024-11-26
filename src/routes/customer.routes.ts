@@ -14,16 +14,6 @@ router.get('/fillCustomers', async (req, res) => {
     res.status(500).send({ message: 'Fehler beim Befüllen der Datenbank', error });
   }
 });
-
-router.get('/fillUsers', async (req, res) => {
-  try {
-    await Customers.insertMany(customers);
-    res.status(200).send({ message: 'Datenbank erfolgreich befüllt' });
-  } catch (error) {
-    console.error('Fehler beim Befüllen der Datenbank:', error);
-    res.status(500).send({ message: 'Fehler beim Befüllen der Datenbank', error });
-  }
-});
 // helpfunctions ----------
 
 // Route: GET /api/customers
@@ -115,20 +105,6 @@ router.put('/customers', async (req, res) => {
     return;
   }
 });
-
-// Route: Post /api/login
-// router.post('/login', async (req, res) => {
-//   const userLogin = new Customers(req.body);
-//   try {
-//     const user = await Customers.findOne({ email: userLogin.email, password: userLogin.password });
-//     res.send(user);
-//   } catch (error) {
-//     console.log('Not Worked In');
-
-//     console.log(error);
-//     res.send({ status: 'Error' });
-//   }
-// });
 
 // Exportieren des Routers
 export default router;

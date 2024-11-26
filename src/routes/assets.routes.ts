@@ -4,16 +4,16 @@ import fs from 'fs';
 import path from 'path';
 import { Customers } from '../models';
 
-const assetsRouter = Router();
+const router = Router();
 
 // Rootpath for images
 const ROOT_PATH = path.join(__dirname, '/assets/img/logos');
 
 // Middleware for fileupload
-assetsRouter.use(fileUpload());
+router.use(fileUpload());
 
 // Route: PUT /api/assets/img/logos
-assetsRouter.put('/assets/img/logos', (req, res) => {
+router.put('/assets/img/logos', (req, res) => {
   const customerId = req.body.id;
   const file = req.files?.file as UploadedFile;
 
@@ -71,10 +71,11 @@ assetsRouter.put('/assets/img/logos', (req, res) => {
 });
 
 // Route: GET /api/assets/img/logos/:customerId/:filename
-assetsRouter.get('/assets/img/logos/:customerId/:filename', (req, res) => {
+router.get('/assets/img/logos/:customerId/:filename', (req, res) => {
   const { customerId, filename } = req.params;
   const filePath = path.join(ROOT_PATH, customerId, filename);
   if (fs.existsSync(filePath)) {
+    res.setHeader('Content-Type', 'image/jpeg');
     res.sendFile(filePath, (err) => {
       if (err) {
         console.error('Error sending file:', err);
@@ -82,6 +83,7 @@ assetsRouter.get('/assets/img/logos/:customerId/:filename', (req, res) => {
       }
     });
   } else {
+    res.setHeader('Content-Type', 'image/jpeg');
     res.sendFile(path.join(ROOT_PATH, 'profilPicDefault.jpg'), (err) => {
       if (err) {
         console.error('Error sending default file:', err);
@@ -92,4 +94,4 @@ assetsRouter.get('/assets/img/logos/:customerId/:filename', (req, res) => {
 });
 
 // Export the router
-export default assetsRouter;
+export default router;

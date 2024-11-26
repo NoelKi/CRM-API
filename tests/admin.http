@@ -1,0 +1,10 @@
+GET http://localhost:3000/api/admin  HTTP/1.1
+Content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJpZDEyMyIsImVtYWlsIjoia2llcmFuLm5vZWxAaWNsb3VkLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTczMjU0MDQyMH0.a2Opmz4BZEqA8_X_lg1OIlXOtoGukqe_hQ9Qnp5Srv8
+
+
+  {
+   "isAdmin": true 
+  }
+
+###

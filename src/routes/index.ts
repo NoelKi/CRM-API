@@ -1,4 +1,7 @@
+import adminRouter from './admin.routes';
 import assetsRouter from './assets.routes';
-import router from './customer.routes';
+import customerRouter from './customer.routes';
+import loginRouter from './login.routes';
+import userRouter from './user.routes';
 
-export default { assetsRouter, customerRouter: router, userRouter: router };
+export default { loginRouter, adminRouter, userRouter, assetsRouter, customerRouter };
