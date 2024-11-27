@@ -5,9 +5,7 @@ export function isAuthenticated(req: Request, res: Response, next: NextFunction)
   const authJwtToken = req.headers.authorization;
 
   if (!authJwtToken) {
-    console.log('pimmel');
-
-    res.sendStatus(403);
+    res.sendStatus(401);
     return;
   }
 
@@ -22,7 +20,7 @@ export function isAuthenticated(req: Request, res: Response, next: NextFunction)
     .catch((err) => {
       console.error('JWT-Token was not valid, access denied: ', err);
 
-      res.sendStatus(403);
+      res.sendStatus(401);
     });
 }
 
