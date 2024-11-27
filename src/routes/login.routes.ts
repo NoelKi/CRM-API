@@ -47,21 +47,28 @@ router.post('/login', async (req, res) => {
 
     const { pictureUrl, isAdmin } = user;
 
+    const nowDate = new Date().getTime();
+    const exp = new Date(nowDate + 7 * 24 * 60 * 60 * 1000).getTime();
+    console.log(exp);
+
     // 4. jsonWt generieren
     const jwtAuthPayload = {
       userId: user._id,
       email,
-      isAdmin
+      isAdmin,
+      exp
     };
 
     const authJwToken = await signJwt(jwtAuthPayload);
+    console.log('TokeN', authJwToken);
 
     // 5. send to frontend
     res.status(200).json({
       user: {
         email,
         pictureUrl,
-        isAdmin
+        isAdmin,
+        exp
       },
       authJwToken
     });

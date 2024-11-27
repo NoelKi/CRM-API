@@ -16,3 +16,7 @@ export async function signJwt<T>(payload: T) {
 
   return authJwtToken;
 }
+
+export function checkIfJwtIsExpired(exp: number) {
+  return exp < Date.now();
+}
