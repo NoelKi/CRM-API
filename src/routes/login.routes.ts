@@ -1,6 +1,11 @@
-import { Router } from 'express';
+import { Request, Response, Router } from 'express';
+
+import environment from '../environments/environment';
 import { calculatePasswordHash } from '../utils/hash.utils';
-import { signJwt } from '../utils/jwt.utils';
+import { createAccessToken, createRefreshToken } from '../utils/jwt.utils';
+
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = environment.JWT_SECRET;
 
 const router = Router();
 
@@ -37,8 +42,6 @@ router.post('/login', async (req, res) => {
     // 2. pw to hash
     const passwordHash = await calculatePasswordHash(password, user.passwordSalt);
 
-    console.log(passwordHash);
-
     if (passwordHash != user.password) {
       const message = `login denied`;
       console.error(`${message} - user with ${email} has entered the wrong password.`);
@@ -47,36 +50,45 @@ router.post('/login', async (req, res) => {
 
     const { pictureUrl, isAdmin } = user;
 
-    const nowDate = new Date().getTime();
-    const exp = new Date(nowDate + 7 * 24 * 60 * 60 * 1000).getTime();
-    console.log(exp);
-
     // 4. jsonWt generieren
     const jwtAuthPayload = {
       userId: user._id,
       email,
-      isAdmin,
-      exp
+      isAdmin
     };
-
-    const authJwToken = await signJwt(jwtAuthPayload);
-    console.log('TokeN', authJwToken);
+    const accessToken = await createAccessToken(jwtAuthPayload);
+    const refreshToken = await createRefreshToken(jwtAuthPayload);
 
     // 5. send to frontend
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: false,
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+
     res.status(200).json({
       user: {
         email,
         pictureUrl,
-        isAdmin,
-        exp
+        isAdmin
       },
-      authJwToken
+      accessToken
     });
   } catch (error) {
     console.log('Not Worked In');
     console.log(error);
     res.send({ status: 'Error' });
   }
+});
+
+router.post('/logout', (req: Request, res: Response) => {
+  res.clearCookie('authToken', {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'strict'
+  });
+  res.json({ message: 'Logout erfolgreich!' });
 });
 
 // Exportieren des Routers

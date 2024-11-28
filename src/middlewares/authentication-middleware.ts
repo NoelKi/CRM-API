@@ -2,14 +2,17 @@ import { NextFunction, Request, Response } from 'express';
 import { checkIfJwtIsExpired, checkJwtValidity } from '../utils/jwt.utils';
 
 export function isAuthenticated(req: Request, res: Response, next: NextFunction) {
-  const authJwtToken = req.headers.authorization;
+  const accessToken = req.headers.authorization;
+  const refreshToken = req.cookies.refreshToken;
+  console.log('accessToken', accessToken);
+  console.log('refreshToken', refreshToken);
 
-  if (!authJwtToken) {
+  if (!accessToken) {
     res.sendStatus(401);
     return;
   }
 
-  checkJwtValidity(authJwtToken)
+  checkJwtValidity(accessToken)
     .then((payload) => {
       console.log('Authentication JWT successfully decoded: ', payload);
 
@@ -22,7 +25,7 @@ export function isAuthenticated(req: Request, res: Response, next: NextFunction)
       next();
     })
     .catch((err) => {
-      console.error('JWT-Token was not valid, access denied: ', err);
+      console.error('Access-Token was not valid, access denied: ', err);
 
       res.sendStatus(401);
     });

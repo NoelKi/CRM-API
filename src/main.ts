@@ -1,3 +1,5 @@
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
 import environment from './environments/environment';
@@ -10,12 +12,30 @@ const app = express();
 
 // Middleware zum Parsen von JSON
 app.use(express.json());
+app.use(cookieParser());
+
+app.options(
+  '*',
+  cors({
+    origin: 'http://localhost:4200',
+    credentials: true
+  })
+);
+
+// Setze die Middleware für CORS
+app.use(
+  cors({
+    origin: 'http://localhost:4200', // URL des Frontends
+    credentials: true // Erlaubt Cookies und Header
+  })
+);
 
 // Setzen Sie die Portnummer für den Server
 const port = environment.port;
 
 // Binden Sie den customerRouter unter dem Pfad '/api' ein
 app.use('/api', myRoutes.loginRouter);
+app.use('/api', myRoutes.tokenRouter);
 app.use('/api', isAuthenticated, myRoutes.assetsRouter);
 app.use('/api', isAuthenticated, myRoutes.customerRouter);
 app.use('/api', isAuthenticated, myRoutes.userRouter);
