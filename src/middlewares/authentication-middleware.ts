@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { checkIfJwtIsExpired, checkJwtValidity } from '../utils/jwt.utils';
 
-export function isAuthenticated(req: Request, res: Response, next: NextFunction) {
+export async function isAuthenticated(req: Request, res: Response, next: NextFunction) {
   const accessToken = req.headers.authorization;
   const refreshToken = req.cookies.refreshToken;
   console.log('accessToken', accessToken);
@@ -12,23 +12,21 @@ export function isAuthenticated(req: Request, res: Response, next: NextFunction)
     return;
   }
 
-  checkJwtValidity(accessToken)
-    .then((payload) => {
-      console.log('Authentication JWT successfully decoded: ', payload);
+  try {
+    const isValid = checkJwtValidity(accessToken);
 
-      if (checkIfJwtIsExpired(payload.exp)) {
-        throw new Error('Token is expired');
-      }
+    if (checkIfJwtIsExpired(isValid.payload.exp)) {
+      throw new Error('Token is expired');
+    }
 
-      req.user = payload;
+    req.user = isValid;
 
-      next();
-    })
-    .catch((err) => {
-      console.error('Access-Token was not valid, access denied: ', err);
+    next();
+  } catch (err: any) {
+    console.error('Access-Token was not valid, access denied: ', err);
 
-      res.sendStatus(401);
-    });
+    res.sendStatus(401);
+  }
 }
 
 declare global {

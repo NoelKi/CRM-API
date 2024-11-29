@@ -1,15 +1,17 @@
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import environment from '../environments/environment';
+import { refreshToken } from '../fake-db/refreshToken.data';
 
+const tokenId = crypto.randomUUID();
 const JWT_SECRET = environment.JWT_SECRET;
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 
-export async function checkJwtValidity(authJwtToken: string) {
-  const payload = await jwt.verify(authJwtToken, JWT_SECRET);
-  console.log('verification');
+export function checkJwtValidity(authJwtToken: string) {
+  const decoded = jwt.verify(authJwtToken, JWT_SECRET) as JwtPayload;
 
-  console.log('Found user details in JWT: ', payload);
+  console.log('Found user details in JWT: ', decoded);
 
-  return payload;
+  return decoded;
 }
 
 export function checkIfJwtIsExpired(exp: number): boolean {
@@ -17,16 +19,30 @@ export function checkIfJwtIsExpired(exp: number): boolean {
   // return true;
 }
 
-export async function createAccessToken<T>(payload: T) {
-  const accessToken = await jwt.sign({ payload }, JWT_SECRET, { expiresIn: '15m' });
+export function createAccessToken<T>(payload: T) {
+  const accessToken = jwt.sign({ payload }, JWT_SECRET, { expiresIn: '15m' });
   console.log('accessToken', accessToken);
   return accessToken;
 }
 
-export async function createRefreshToken<T>(payload: T) {
-  const refreshToken = await jwt.sign({ payload }, JWT_SECRET, { expiresIn: '7d' });
+export function createRefreshToken<T>(payload: T) {
+  const refreshToken = jwt.sign({ payload, jti: tokenId }, JWT_SECRET, { expiresIn: '7d' });
   console.log('refreshToken', refreshToken);
   return refreshToken;
 }
 
-export async function refreshAccessToken() {}
+export async function verifyTokenValidity(userToken: string) {
+  for (const element of refreshToken) {
+    if (element.refreshToken === userToken) {
+      if (element.status === 'expired') {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
+}
+
+// export async function saveRefreshToken(refreshToken, userId) {}
+
+// export async function deleteRefreshToken(refreshToken) {}

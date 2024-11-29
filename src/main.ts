@@ -22,14 +22,6 @@ app.options(
   })
 );
 
-// Setze die Middleware für CORS
-app.use(
-  cors({
-    origin: 'http://localhost:4200', // URL des Frontends
-    credentials: true // Erlaubt Cookies und Header
-  })
-);
-
 // Setzen Sie die Portnummer für den Server
 const port = environment.port;
 

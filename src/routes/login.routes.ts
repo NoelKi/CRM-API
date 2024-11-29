@@ -83,10 +83,11 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/logout', (req: Request, res: Response) => {
-  res.clearCookie('authToken', {
+  res.clearCookie('refreshToken', {
     httpOnly: true,
-    secure: true,
-    sameSite: 'strict'
+    secure: false,
+    sameSite: 'strict',
+    expires: new Date(0)
   });
   res.json({ message: 'Logout erfolgreich!' });
 });
