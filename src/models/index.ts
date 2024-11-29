@@ -5,4 +5,4 @@ import { IUser, userSchema } from './schemas/user.schema';
 
 export const Customers = model<ICustomer>('customers', customerSchema);
 export const Users = model<IUser>('users', userSchema);
-export const RefreshToken = model<IRefToken>('refreshToken', refreshTokenSchema);
+export const RefreshTokens = model<IRefToken>('refreshtoken', refreshTokenSchema);

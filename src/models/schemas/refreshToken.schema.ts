@@ -2,12 +2,10 @@ import { Schema } from 'mongoose';
 
 export const refreshTokenSchema = new Schema({
   refreshToken: { type: String },
-  userId: { type: Number },
-  status: { type: String }
+  user_id: { type: Schema.Types.ObjectId, ref: 'users' }
 });
 
 export interface IRefToken {
   refreshToken: string;
-  userId: number;
-  status: string;
+  user_id?: Schema.Types.ObjectId;
 }

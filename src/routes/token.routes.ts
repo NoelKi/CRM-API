@@ -10,6 +10,7 @@ const JWT_SECRET = environment.JWT_SECRET;
 
 router.post('/refresh', async (req, res) => {
   const refreshToken = req.cookies.refreshToken;
+  const user_id = req.body.user_id;
 
   if (!refreshToken) {
     res.sendStatus(401);
@@ -21,23 +22,25 @@ router.post('/refresh', async (req, res) => {
     res.sendStatus(403);
   }
 
+  const val = await verifyTokenValidity(refreshToken);
   //implement token verification here
-  if (!verifyTokenValidity(refreshToken)) {
+  if (!val) {
     res.sendStatus(403);
   }
 
   const user = decode;
   console.log('user', user);
 
-  const newRefreshToken = createRefreshToken(user);
+  const newRefreshToken = await createRefreshToken(user, user_id);
   const accessToken = createAccessToken(user);
+
   res.cookie('refreshToken', newRefreshToken, {
     httpOnly: true,
     secure: false,
     sameSite: 'strict',
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
-  res.json({ accessToken });
+  res.status(200).json({ accessToken });
 });
 
 export default router;

@@ -8,6 +8,8 @@ Content-Type: application/json
   "password": "123"
 }
 
+###
+
 POST http://localhost:3000/api/login  HTTP/1.1
 Content-type: application/json
 
@@ -16,8 +18,8 @@ Content-type: application/json
    "password": "123"
   }
 
-
 ###
+
 POST http://localhost:3000/api/logout  HTTP/1.1
 Content-type: application/json
 Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJJZCI6ImlkMTIzIiwiZW1haWwiOiJraWVyYW4ubm9lbEBpY2xvdWQuY29tIiwiaXNBZG1pbiI6dHJ1ZX0sImlhdCI6MTczMjc5NjIwOCwiZXhwIjoxNzMzNDAxMDA4fQ.YoSb46Yv163gqIhFiqmbFqLIX_-ctnKxJoCXleuWrHc
@@ -26,6 +28,11 @@ Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZX
 
 POST http://localhost:3000/api/refresh HTTP/1.1
 Content-type: application/json
-Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJJZCI6ImlkMTIzIiwiZW1haWwiOiJraWVyYW4ubm9lbEBpY2xvdWQuY29tIiwiaXNBZG1pbiI6dHJ1ZX0sImlhdCI6MTczMjc4ODQ5OSwiZXhwIjoxNzMzMzkzMjk5fQ.ripGtz4lcp7SznB7hximKjNzKc_dM1fKGzQY3Hmqge8
+Cookie: refreshToken=eyJhOnsidXNlcklkIjoiNjc0OWM1ODgyMWYxZGYwNzA1ZjhjMDgyIiwiZW1haWwiOiJraWVyYW4ubm9lbEBpY2xvdWQuY29tIiwiaXNBZG1pbiI6dHJ1ZX0sImp0aSI6IjZkNTgwNDg2LTNhY2EtNDM2OS04YzE5LTU4ZmMzZDhiNDUwNyIsImlhdCI6MTczMjg4ODY1MywiZXhwIjoxNzMzNDkzNDUzfSwianRpIjoiOGU5YmY0ZjUtMjlmYS00ZTU0LThkMWQtOTdlZDcwMzNiYmQ1IiwiaWF0IjoxNzMyODg5MzY2LCJleHAiOjE3MzM0OTQxNjZ9.6knwiU67MqsOQx4CHX9q0xyLNYZ8z9xJ9UkTzbtx7ag
+
+{
+  "user_id": "6749bc114d5264a7fec86775"
+}
 
 ###
+
