@@ -1,3 +1,13 @@
+POST http://localhost:3000/api/signup HTTP/1.1 
+Content-Type: application/json 
+
+{
+  "email": "test123@test.com",  
+  "firstName": "Peter",
+  "lastName" : "Paul",
+  "password": "123"
+}
+
 POST http://localhost:3000/api/login  HTTP/1.1
 Content-type: application/json
 
@@ -6,8 +16,8 @@ Content-type: application/json
    "password": "123"
   }
 
-###
 
+###
 POST http://localhost:3000/api/logout  HTTP/1.1
 Content-type: application/json
 Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJJZCI6ImlkMTIzIiwiZW1haWwiOiJraWVyYW4ubm9lbEBpY2xvdWQuY29tIiwiaXNBZG1pbiI6dHJ1ZX0sImlhdCI6MTczMjc5NjIwOCwiZXhwIjoxNzMzNDAxMDA4fQ.YoSb46Yv163gqIhFiqmbFqLIX_-ctnKxJoCXleuWrHc

@@ -56,8 +56,8 @@ router.post('/login', async (req, res) => {
       email,
       isAdmin
     };
-    const accessToken = await createAccessToken(jwtAuthPayload);
-    const refreshToken = await createRefreshToken(jwtAuthPayload);
+    const accessToken = createAccessToken(jwtAuthPayload);
+    const refreshToken = createRefreshToken(jwtAuthPayload);
 
     // 5. send to frontend
     res.cookie('refreshToken', refreshToken, {
