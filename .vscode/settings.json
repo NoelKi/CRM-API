@@ -5,10 +5,16 @@
     "source.organizeImports": "explicit",
     "source.fixAll": "explicit"
   },
-  "eslint.options": {
-    "extensions": [".ts", ".html"]
-  },
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "html"],
+  // "eslint.options": {
+  //   "extensions": [".ts", ".html"]
+  // },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html"
+  ],
   "files.eol": "\n",
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
