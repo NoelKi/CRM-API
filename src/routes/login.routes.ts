@@ -67,11 +67,13 @@ router.post('/login', async (req, res) => {
       httpOnly: true,
       secure: false,
       sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: '/'
     });
 
     res.status(200).json({
       user: {
+        user_id: user._id,
         email,
         pictureUrl,
         isAdmin
@@ -89,8 +91,7 @@ router.post('/logout', (req: Request, res: Response) => {
   res.clearCookie('refreshToken', {
     httpOnly: true,
     secure: false,
-    sameSite: 'strict',
-    expires: new Date(0)
+    sameSite: 'strict'
   });
   res.json({ message: 'Logout erfolgreich!' });
 });
