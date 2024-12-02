@@ -25,11 +25,10 @@ export function createAccessToken<T>(payload: T) {
   return accessToken;
 }
 
-export async function createRefreshToken<T>(payload: T, user_id: Types.ObjectId) {
+export async function createRefreshToken(payload: ICustomJwtPayload) {
   const refreshToken = jwt.sign({ payload, jti: tokenId }, JWT_SECRET, { expiresIn: '7d' });
-  const save = await saveRefreshToken(refreshToken, user_id);
-  console.log('save', save);
-
+  const user_id = payload.user_id;
+  await saveRefreshToken(refreshToken, user_id);
   return refreshToken;
 }
 
@@ -43,11 +42,13 @@ export async function verifyRefreshTokenValidity(userToken: string) {
 // fake db
 async function saveRefreshToken(refreshToken: string, user_id: Types.ObjectId) {
   const data = { refreshToken, user_id };
-
-  // Erstellen Sie eine neue Instanz des Modells
   const tokenObj = new RefreshTokens(data);
-
   // Speichern Sie das Token-Objekt in der Datenbank
-  const newToken = await tokenObj.save();
-  return newToken;
+  await tokenObj.save();
+}
+
+interface ICustomJwtPayload {
+  user_id: Types.ObjectId;
+  email: string;
+  isAdmin: boolean;
 }

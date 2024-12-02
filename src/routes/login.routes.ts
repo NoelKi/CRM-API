@@ -55,12 +55,12 @@ router.post('/login', async (req, res) => {
 
     // 4. jsonWt generieren
     const jwtAuthPayload = {
-      userId: user._id,
+      user_id: user._id,
       email,
       isAdmin
     };
     const accessToken = createAccessToken(jwtAuthPayload);
-    const refreshToken = await createRefreshToken(jwtAuthPayload, user._id);
+    const refreshToken = await createRefreshToken(jwtAuthPayload);
 
     // 5. send to frontend
     res.cookie('refreshToken', refreshToken, {
@@ -73,7 +73,6 @@ router.post('/login', async (req, res) => {
 
     res.status(200).json({
       user: {
-        user_id: user._id,
         email,
         pictureUrl,
         isAdmin
