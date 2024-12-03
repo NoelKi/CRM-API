@@ -20,12 +20,14 @@ router.post('/refresh', async (req, res) => {
 
   if (!refreshToken) {
     res.sendStatus(401);
+    return;
   }
 
   // any has to be changed at the moment when refreshtoken payload is correct set
   const decode = jwt.verify(refreshToken, JWT_SECRET) as JwtPayload;
   if (!decode) {
     res.sendStatus(403);
+    return;
   }
 
   // extract payload
@@ -35,6 +37,7 @@ router.post('/refresh', async (req, res) => {
   const val = await verifyRefreshTokenValidity(refreshToken);
   if (!val) {
     res.sendStatus(403);
+    return;
   }
 
   // delete old refresh token
