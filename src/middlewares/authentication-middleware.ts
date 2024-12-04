@@ -1,7 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import { checkIfJwtIsExpired, checkJwtValidity } from '../utils/jwt.utils';
 
-export async function isAuthenticated(req: Request, res: Response, next: NextFunction) {
+export async function isAuthenticated(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> {
   const accessToken = req.headers.authorization;
   const refreshToken = req.cookies.refreshToken;
   console.log('accessToken', accessToken);
@@ -25,7 +29,8 @@ export async function isAuthenticated(req: Request, res: Response, next: NextFun
   } catch (err: any) {
     console.error('Access-Token was not valid, access denied: ', err);
 
-    res.sendStatus(401);
+    // res.sendStatus(401);
+    res.send({ success: false, message: err });
   }
 }
 
