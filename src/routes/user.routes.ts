@@ -16,8 +16,8 @@ router.get('/fillUsers', async (req, res) => {
   }
 });
 
-router.get('/testRoute', async (req, res) => {
-  res.sendStatus(200);
+router.get('/test', async (req, res) => {
+  res.send({ success: true, message: 'anyways' });
   // try {
   //   res.status(200).send({ message: 'Datenbank erfolgreich befüllt' });
   // } catch (error) {
