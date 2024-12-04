@@ -5,7 +5,6 @@ import environment from './environments/environment';
 import { isAdmin } from './middlewares/admin-only-middleware';
 import { isAuthenticated } from './middlewares/authentication-middleware';
 import myRoutes from './routes'; // include index
-
 // Erstellen Sie eine Express-Anwendung
 const app = express();
 
@@ -17,12 +16,12 @@ app.use(cookieParser());
 const port = environment.port;
 
 // Binden Sie den customerRouter unter dem Pfad '/api' ein
+app.use('/api', myRoutes.tokenRouter);
 app.use('/api', myRoutes.signupRouter);
 app.use('/api', myRoutes.loginRouter);
-app.use('/api', myRoutes.tokenRouter);
+app.use('/api', isAuthenticated, myRoutes.userRouter);
 app.use('/api', isAuthenticated, myRoutes.assetsRouter);
 app.use('/api', isAuthenticated, myRoutes.customerRouter);
-app.use('/api', isAuthenticated, myRoutes.userRouter);
 app.use('/api', isAuthenticated, isAdmin, myRoutes.adminRouter);
 
 // Starten Sie den Server und hören Sie auf den angegebenen Port
