@@ -18,11 +18,6 @@ router.get('/fillUsers', async (req, res) => {
 
 router.get('/test', async (req, res) => {
   res.send({ success: true, message: 'anyways' });
-  // try {
-  //   res.status(200).send({ message: 'Datenbank erfolgreich befüllt' });
-  // } catch (error) {
-  //   res.status(500).send({ message: 'Fehler beim Befüllen der Datenbank', error });
-  // }
 });
 
 // ---------- helpfunctions ----------
