@@ -4,13 +4,11 @@ import environment from '../environments/environment';
 import { RefreshTokens } from '../models';
 
 const tokenId = crypto.randomUUID();
-const JWT_SECRET = environment.JWT_SECRET;
+const jwtSecretKey = environment.JWT_SECRET;
 // const jwt = require('jsonwebtoken');
 
 export function checkJwtValidity(authJwtToken: string) {
-  const decoded = jwt.verify(authJwtToken, JWT_SECRET) as JwtPayload;
-
-  console.log('Found user details in JWT: ', decoded);
+  const decoded = jwt.verify(authJwtToken, jwtSecretKey) as JwtPayload;
 
   return decoded;
 }
@@ -21,27 +19,26 @@ export function checkIfJwtIsExpired(exp: number): boolean {
 }
 
 export function createAccessToken<T>(payload: T) {
-  const accessToken = jwt.sign({ payload }, JWT_SECRET, { expiresIn: '10s' });
+  const accessToken = jwt.sign({ payload }, jwtSecretKey, { expiresIn: '10s' });
   return accessToken;
 }
 
 export async function createRefreshToken(payload: ICustomJwtPayload) {
-  const refreshToken = jwt.sign({ payload, jti: tokenId }, JWT_SECRET, { expiresIn: '7d' });
-  const user_id = payload.user_id;
-  await saveRefreshToken(refreshToken, user_id);
+  const refreshToken = jwt.sign({ payload, jti: tokenId }, jwtSecretKey, { expiresIn: '7d' });
+  const userId = payload.user_id;
+  await saveRefreshToken(refreshToken, userId);
   return refreshToken;
 }
 
 // toDo verify Token Vailidity from dB
 export async function verifyRefreshTokenValidity(userToken: string) {
-  const token = await RefreshTokens.findOne({ refreshToken: userToken });
-  console.log('token', token);
-  return token;
+  const document = await RefreshTokens.findOne({ refreshToken: userToken });
+  return document;
 }
 
 // fake db
-async function saveRefreshToken(refreshToken: string, user_id: Types.ObjectId) {
-  const data = { refreshToken, user_id };
+async function saveRefreshToken(refreshToken: string, userId: Types.ObjectId) {
+  const data = { refreshToken, user_id: userId };
   const tokenObj = new RefreshTokens(data);
   // Speichern Sie das Token-Objekt in der Datenbank
   await tokenObj.save();
