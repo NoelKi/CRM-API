@@ -11,20 +11,17 @@ import {
 // const jwt = require('jsonwebtoken');
 
 const router = Router();
-const JWT_SECRET = environment.JWT_SECRET;
+const jwtSecretKey = environment.JWT_SECRET;
 
 router.post('/refresh', async (req, res) => {
-  console.log('Start Refresh Route');
-
   const refreshToken = req.cookies.refreshToken;
-
   if (!refreshToken) {
     res.sendStatus(401);
     return;
   }
 
   // any has to be changed at the moment when refreshtoken payload is correct set
-  const decode = jwt.verify(refreshToken, JWT_SECRET) as JwtPayload;
+  const decode = jwt.verify(refreshToken, jwtSecretKey) as JwtPayload;
   if (!decode) {
     res.sendStatus(403);
     return;
@@ -35,6 +32,7 @@ router.post('/refresh', async (req, res) => {
 
   // token verification
   const val = await verifyRefreshTokenValidity(refreshToken);
+
   if (!val) {
     res.sendStatus(403);
     return;
